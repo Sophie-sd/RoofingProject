@@ -1,0 +1,57 @@
+{% if form_type == 'callback' %}
+<form hx-post="{% url 'core:htmx_callback' %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      class="home-cta-form">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <div class="home-cta-form__error">{{ form.non_field_errors }}</div>
+  {% endif %}
+  <h3 class="home-cta-form__title">{{ form_title|default:'Безкоштовний кошторис' }}</h3>
+  <p class="home-cta-form__hint">{{ form_hint|default:callback_hint }}</p>
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.name.id_for_label }}">Ваше ім'я</label>
+    <input type="text"
+           name="name"
+           id="{{ form.name.id_for_label }}"
+           class="home-cta-form__input"
+           placeholder="Іван Петренко"
+           autocomplete="name"
+           maxlength="120"
+           required
+           value="{{ form.name.value|default:'' }}">
+    {% if form.name.errors %}<div class="home-cta-form__error">{{ form.name.errors.0 }}</div>{% endif %}
+  </div>
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.phone.id_for_label }}">Номер телефону</label>
+    <input type="tel"
+           name="phone"
+           id="{{ form.phone.id_for_label }}"
+           class="home-cta-form__input"
+           placeholder="+380 00 000 00 00"
+           autocomplete="tel"
+           inputmode="tel"
+           maxlength="20"
+           required
+           value="{{ form.phone.value|default:'' }}">
+    {% if form.phone.errors %}<div class="home-cta-form__error">{{ form.phone.errors.0 }}</div>{% endif %}
+  </div>
+  {% if show_message_field %}
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+    <textarea name="message"
+              id="{{ form.message.id_for_label }}"
+              class="home-cta-form__textarea"
+              rows="4"
+              maxlength="1000">{{ form.message.value|default:'' }}</textarea>
+    {% if form.message.errors %}<div class="home-cta-form__error">{{ form.message.errors.0 }}</div>{% endif %}
+  </div>
+  {% else %}
+  <input type="hidden" name="message" value="{{ form_message|default:'Запит з сайту' }}">
+  {% endif %}
+  <input type="hidden" name="source" value="{{ form_source|default:'page' }}">
+  <button type="submit" class="home-cta-form__submit">{{ submit_label|default:'Отримати кошторис безкоштовно' }}</button>
+</form>
+{% else %}
+{% include 'partials/estimate_form.html' with form=form form_source=form_source submit_label=submit_label form_title=form_title form_hint=form_hint %}
+{% endif %}

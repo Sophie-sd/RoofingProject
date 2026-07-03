@@ -1,0 +1,336 @@
+/* Home page — design tokens */
+.home-page {
+  --home-bg: #f2ece3;
+  --home-dark: #1a1714;
+  --home-accent: #8c5d28;
+  --home-accent-hover: #a06b30;
+  --home-accent-soft: #c4a27a;
+  --home-muted: #635b52;
+  --home-border: #d6cfc5;
+  --home-svc-bg: #ece5d9;
+  --home-cream: #f2ece3;
+  --home-section-pad: 80px;
+  background: var(--home-bg);
+}
+
+.home-page main {
+  padding-bottom: 0;
+}
+
+@keyframes home-h-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes home-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Hero */
+.home-hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: var(--home-dark);
+}
+
+.home-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.58;
+  filter: grayscale(0.12);
+}
+
+.home-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(26, 23, 20, 0.05) 0%, rgba(26, 23, 20, 0.28) 45%, rgba(26, 23, 20, 0.78) 100%);
+}
+
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 120px var(--space-gutter) 0;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.home-hero__content {
+  padding-bottom: 44px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.home-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  animation: home-h-in 0.7s ease 0.1s both;
+}
+
+.home-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9.5vw, 8rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--home-cream);
+  margin: 0 0 28px;
+  animation: home-h-in 0.8s ease 0.25s both;
+}
+
+.home-hero__title-accent {
+  color: var(--home-accent);
+}
+
+.home-hero__lead {
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  color: rgba(242, 236, 227, 0.72);
+  max-width: 440px;
+  margin: 0 0 36px;
+  animation: home-h-in 0.8s ease 0.4s both;
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  animation: home-h-in 0.8s ease 0.55s both;
+}
+
+.home-hero__stats {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(242, 236, 227, 0.1);
+  animation: home-h-in 0.8s ease 0.7s both;
+}
+
+.home-hero__stats-grid {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-gutter);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-hero__stat {
+  padding: 18px 20px 18px 0;
+  border-right: 1px solid rgba(242, 236, 227, 0.1);
+}
+
+.home-hero__stat:not(:first-child) {
+  padding-left: 24px;
+}
+
+.home-hero__stat:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.home-hero__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4.5vw, 2.75rem);
+  font-weight: 900;
+  color: var(--home-cream);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.home-hero__stat-value--accent {
+  color: var(--home-accent);
+}
+
+.home-hero__stat-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242, 236, 227, 0.42);
+  margin-top: 3px;
+}
+
+/* Shared UI */
+.home-eyebrow-line {
+  width: 36px;
+  height: 1.5px;
+  background: var(--home-accent);
+  flex-shrink: 0;
+  display: block;
+}
+
+.home-eyebrow-text {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--home-accent-soft);
+}
+
+.home-eyebrow-text--accent {
+  color: var(--home-accent);
+  letter-spacing: 0.15em;
+}
+
+.home-section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.home-section-eyebrow .home-eyebrow-line {
+  width: 26px;
+}
+
+.home-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0 0 18px;
+  color: var(--home-dark);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+}
+
+.home-text {
+  font-size: 0.975rem;
+  line-height: 1.72;
+  color: var(--home-muted);
+  margin: 0 0 12px;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 28px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background var(--t-base), border-color var(--t-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-btn--accent {
+  background: var(--home-accent);
+  color: var(--home-cream);
+}
+
+.home-btn--accent:hover {
+  background: var(--home-accent-hover);
+}
+
+.home-btn--ghost {
+  padding: 0 24px;
+  border: 1px solid rgba(242, 236, 227, 0.3);
+  color: var(--home-cream);
+}
+
+.home-btn--ghost:hover {
+  border-color: rgba(242, 236, 227, 0.7);
+}
+
+.home-btn .material-symbols-outlined {
+  font-size: 15px;
+}
+
+.home-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-dark);
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--home-accent);
+  transition: color var(--t-base);
+}
+
+.home-link-arrow:hover {
+  color: var(--home-accent);
+}
+
+.home-link-arrow .material-symbols-outlined {
+  font-size: 14px;
+}
+
+.home-link-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-muted);
+  border-bottom: 1px solid var(--home-border);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  transition: color var(--t-base);
+}
+
+.home-link-subtle:hover {
+  color: var(--home-dark);
+}
+
+.home-link-subtle .material-symbols-outlined {
+  font-size: 13px;
+}
+
+.home-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.home-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--home-dark);
+}
+
+.home-checklist li::before {
+  content: '';
+  width: 18px;
+  height: 1.5px;
+  background: var(--home-accent);
+  flex-shrink: 0;
+}

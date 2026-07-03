@@ -1,0 +1,29 @@
+<section id="contact" class="home-cta reveal">
+  <div class="home-cta__grid">
+    <div class="home-cta__info">
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">Розрахунок вартості</span>
+      </div>
+      <h2 class="home-section-title">Готові розпочати проект?</h2>
+      <p class="home-text">Заповніть форму — ми зателефонуємо протягом дня і призначимо безкоштовний виїзд для заміру.</p>
+      <div class="home-cta__contacts">
+        <a href="tel:{{ site_contact.phone_tel }}" class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">call</span>{{ site_contact.phone }}
+        </a>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">schedule</span>{{ site_hours.weekdays }}
+        </p>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">schedule</span>{{ site_hours.weekend }}
+        </p>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">location_on</span>{{ site_contact.location }}
+        </p>
+      </div>
+    </div>
+    <div class="home-cta__form-wrap">
+      {% include 'partials/estimate_form.html' with form=estimate_form form_source=form_source|default:'page' %}
+    </div>
+  </div>
+</section>

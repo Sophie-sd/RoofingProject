@@ -1,0 +1,98 @@
+<div class="chat-widget" id="chat-widget" data-chat-open="false">
+  <div class="chat-widget__actions">
+    {% if telegram_bot_url %}
+    <a
+      class="chat-widget__telegram-btn"
+      href="{{ telegram_bot_url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Написати в Telegram"
+      title="Написати в Telegram"
+    >
+      <span class="material-symbols-outlined" aria-hidden="true">send</span>
+    </a>
+    {% endif %}
+
+    <button
+      type="button"
+      class="chat-widget__toggle"
+      id="chat-widget-toggle"
+      aria-expanded="false"
+      aria-controls="chat-widget-panel"
+      aria-label="Відкрити чат"
+    >
+      <span class="material-symbols-outlined chat-widget__toggle-icon chat-widget__toggle-icon--open" aria-hidden="true">chat</span>
+      <span class="material-symbols-outlined chat-widget__toggle-icon chat-widget__toggle-icon--close" aria-hidden="true">close</span>
+    </button>
+  </div>
+
+  <section
+    class="chat-widget__panel"
+    id="chat-widget-panel"
+    hidden
+    aria-label="Чат з підтримкою"
+  >
+    <header class="chat-widget__header">
+      <div class="chat-widget__header-text">
+        <h2 class="chat-widget__title">Онлайн-чат</h2>
+        <p class="chat-widget__subtitle">Відповімо найближчим часом</p>
+      </div>
+      <button
+        type="button"
+        class="chat-widget__close"
+        id="chat-widget-close"
+        aria-label="Закрити чат"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <div
+      class="chat-widget__messages"
+      id="chat-messages-list"
+      hx-get="{% url 'core:htmx_chat_messages' %}"
+      hx-trigger="chatOpen from:#chat-widget, every 4s"
+      hx-include="#chat-after-id"
+      hx-swap="beforeend"
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+    ></div>
+
+    <form
+      class="chat-widget__form"
+      hx-post="{% url 'core:htmx_chat_send' %}"
+      hx-target="#chat-messages-list"
+      hx-swap="innerHTML"
+      hx-on::after-request="if(event.detail.successful) { const messageInput = this.querySelector('#chat-message-input'); if (messageInput) { messageInput.value = ''; } const nameInput = this.querySelector('#chat-visitor-name'); if (nameInput && nameInput.value) { nameInput.defaultValue = nameInput.value; } }"
+    >
+      {% csrf_token %}
+      <input type="hidden" id="chat-after-id" name="after_id" value="0">
+      <label class="visually-hidden" for="chat-visitor-name">Ваше ім'я</label>
+      <input
+        type="text"
+        id="chat-visitor-name"
+        name="visitor_name"
+        class="chat-widget__input chat-widget__input--name"
+        placeholder="Ваше ім'я"
+        maxlength="100"
+        autocomplete="name"
+      >
+      <div class="chat-widget__compose">
+        <label class="visually-hidden" for="chat-message-input">Повідомлення</label>
+        <textarea
+          id="chat-message-input"
+          name="message"
+          class="chat-widget__input chat-widget__textarea"
+          placeholder="Напишіть повідомлення..."
+          rows="2"
+          maxlength="2000"
+          required
+        ></textarea>
+        <button type="submit" class="chat-widget__send" aria-label="Надіслати">
+          <span class="material-symbols-outlined" aria-hidden="true">send</span>
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

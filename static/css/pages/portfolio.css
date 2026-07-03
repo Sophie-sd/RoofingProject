@@ -1,0 +1,32 @@
+/* Portfolio page */
+.home-portfolio .site-container {
+  width: 100%;
+  max-width: var(--container-max);
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+.home-portfolio .site-filter-bar {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.home-portfolio .home-portfolio__grid {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .home-portfolio .site-filter-bar {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .home-portfolio .site-filter-btn {
+    flex-shrink: 1;
+    white-space: normal;
+    text-align: center;
+  }
+}

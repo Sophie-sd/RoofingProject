@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Питання та контакти — {{ site_name }}{% endblock %}
+
+{% block content %}
+{% include 'partials/page_hero.html' %}
+
+<section id="faq" class="site-section site-section--svc">
+  <div class="site-container site-faq-grid">
+    <div>
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">FAQ</span>
+      </div>
+      <h2 class="home-section-title">Популярні запитання</h2>
+      <p class="home-text">Дізнайтеся більше про наші процеси, матеріали та гарантійні зобов'язання.</p>
+    </div>
+    <div>
+      {% include 'htmx/faq_list.html' %}
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="site-contacts-grid site-container">
+  <div>
+    <div class="home-section-eyebrow">
+      <span class="home-eyebrow-line" aria-hidden="true"></span>
+      <span class="home-eyebrow-text home-eyebrow-text--accent">Контакти</span>
+    </div>
+    <h2 class="home-section-title">Контактна інформація</h2>
+    <div class="home-cta__contacts">
+      <p class="home-cta__contact">
+        <span class="material-symbols-outlined" aria-hidden="true">location_on</span>{{ site_contact.location }}
+      </p>
+      <a href="tel:{{ site_contact.phone_tel }}" class="home-cta__contact">
+        <span class="material-symbols-outlined" aria-hidden="true">call</span>{{ site_contact.phone }}
+      </a>
+      <a href="mailto:{{ site_contact.email }}" class="home-cta__contact">
+        <span class="material-symbols-outlined" aria-hidden="true">mail</span>{{ site_contact.email }}
+      </a>
+      <p class="home-cta__contact">
+        <span class="material-symbols-outlined" aria-hidden="true">schedule</span>{{ site_hours.weekdays }}<br>{{ site_hours.weekend }}
+      </p>
+    </div>
+  </div>
+  <div class="home-cta__form-wrap">
+    {% include 'partials/site_form.html' with form=callback_form form_type='callback' form_source='contacts' show_message_field=True submit_label='Надіслати запит' form_title='Зворотний дзвінок' form_hint='Залиште контакти — ми передзвонимо протягом дня' %}
+  </div>
+</section>
+{% endblock %}

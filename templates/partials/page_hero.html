@@ -1,0 +1,18 @@
+<section class="site-page-hero">
+  {% if hero_image %}
+  <img src="{{ hero_image }}" alt="" class="site-page-hero__bg" width="1920" height="800" loading="eager">
+  {% endif %}
+  <div class="site-page-hero__overlay" aria-hidden="true"></div>
+  <div class="site-page-hero__inner">
+    {% if hero_eyebrow %}
+    <div class="home-section-eyebrow">
+      <span class="home-eyebrow-line" aria-hidden="true"></span>
+      <span class="home-eyebrow-text home-eyebrow-text--accent">{{ hero_eyebrow }}</span>
+    </div>
+    {% endif %}
+    <h1 class="site-page-hero__title">{{ hero_title }}</h1>
+    {% if hero_lead %}
+    <p class="site-page-hero__lead">{{ hero_lead }}</p>
+    {% endif %}
+  </div>
+</section>

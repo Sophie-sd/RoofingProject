@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Послуги — {{ site_name }}{% endblock %}
+
+{% block content %}
+{% include 'partials/page_hero.html' %}
+
+<section class="home-services">
+  <div class="home-services__wrap">
+    <div class="home-services__header">
+      <div>
+        <div class="home-section-eyebrow">
+          <span class="home-eyebrow-line" aria-hidden="true"></span>
+          <span class="home-eyebrow-text home-eyebrow-text--accent">Комплексні рішення</span>
+        </div>
+        <h2 class="home-section-title">Експертні послуги</h2>
+      </div>
+    </div>
+    <div class="home-services__grid">
+      {% for item in services_items %}
+      <article class="home-service-card home-service-card--{{ item.variant }}">
+        <span class="material-symbols-outlined home-service-card__icon{% if item.variant == 'dark' %} home-service-card__icon--dark{% endif %}" aria-hidden="true">{{ item.icon }}</span>
+        <h3 class="home-service-card__title">{{ item.title }}</h3>
+        <p class="home-service-card__text">{{ item.text }}</p>
+        <ul class="home-service-card__list{% if item.variant == 'dark' %} home-service-card__list--dark{% endif %}">
+          {% for feature in item.features %}
+          <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+        <div class="home-service-card__footer">
+          <a href="#contact" class="home-btn home-btn--accent home-btn--block">Запросити кошторис</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="home-stats">
+  <div class="home-stats__grid">
+    {% for item in why_us_items %}
+    <div class="home-stats__item">
+      <div class="home-stats__value home-stats__value--accent">{{ item.num }}</div>
+      <div class="home-stats__label">{{ item.title }}</div>
+      <p class="home-stats__text">{{ item.text }}</p>
+      <ul class="home-checklist">
+        {% for feature in item.features %}
+        <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% include 'partials/page_cta.html' %}
+{% endblock %}

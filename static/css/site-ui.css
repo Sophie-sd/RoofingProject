@@ -1,0 +1,190 @@
+/* Shared UI — buttons, typography, links */
+.home-eyebrow-line {
+  width: 36px;
+  height: 1.5px;
+  background: var(--home-accent);
+  flex-shrink: 0;
+  display: block;
+}
+
+.home-eyebrow-text {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--home-accent-soft);
+}
+
+.home-eyebrow-text--accent {
+  color: var(--home-accent);
+  letter-spacing: 0.15em;
+}
+
+.home-section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.home-section-eyebrow .home-eyebrow-line {
+  width: 26px;
+}
+
+.home-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0 0 18px;
+  color: var(--home-dark);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+}
+
+.home-section-title--light {
+  color: var(--home-cream);
+}
+
+.home-text {
+  font-size: 0.975rem;
+  line-height: 1.72;
+  color: var(--home-muted);
+  margin: 0 0 12px;
+}
+
+.home-text--light {
+  color: rgba(242, 236, 227, 0.72);
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 28px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background var(--t-base), border-color var(--t-base), color var(--t-base);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-btn--accent {
+  background: var(--home-accent);
+  color: var(--home-cream);
+}
+
+.home-btn--accent:hover {
+  background: var(--home-accent-hover);
+}
+
+.home-btn--ghost {
+  padding: 0 24px;
+  border: 1px solid rgba(242, 236, 227, 0.3);
+  color: var(--home-cream);
+}
+
+.home-btn--ghost:hover {
+  border-color: rgba(242, 236, 227, 0.7);
+}
+
+.home-btn--outline {
+  border: 1px solid var(--home-border);
+  color: var(--home-dark);
+  background: transparent;
+}
+
+.home-btn--outline:hover {
+  border-color: var(--home-accent);
+  color: var(--home-accent);
+}
+
+.home-btn--block {
+  width: 100%;
+}
+
+.home-btn .material-symbols-outlined {
+  font-size: 15px;
+}
+
+.home-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-dark);
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--home-accent);
+  transition: color var(--t-base);
+}
+
+.home-link-arrow:hover {
+  color: var(--home-accent);
+}
+
+.home-link-arrow .material-symbols-outlined {
+  font-size: 14px;
+}
+
+.home-link-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--home-muted);
+  border-bottom: 1px solid var(--home-border);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  transition: color var(--t-base);
+}
+
+.home-link-subtle:hover {
+  color: var(--home-dark);
+}
+
+.home-link-subtle .material-symbols-outlined {
+  font-size: 13px;
+}
+
+.home-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.home-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--home-dark);
+}
+
+.home-checklist li::before {
+  content: '';
+  width: 18px;
+  height: 1.5px;
+  background: var(--home-accent);
+  flex-shrink: 0;
+}

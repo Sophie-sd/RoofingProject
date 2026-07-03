@@ -1,0 +1,66 @@
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="{% url 'core:home' %}" class="site-header__brand" aria-label="{{ site_name }} — на головну">
+        {% include 'partials/logo_brand.html' with logo_footer=True %}
+      </a>
+      <div class="site-footer__social">
+        <a href="#" class="social-icon" aria-label="Поділитися">
+          <span class="material-symbols-outlined">share</span>
+        </a>
+        <a href="mailto:{{ site_contact.email }}" class="social-icon" aria-label="Електронна пошта">
+          <span class="material-symbols-outlined">mail</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="site-footer__col-2">
+      <h5 class="text-label-caps footer-heading">Навігація</h5>
+      <ul class="footer-list">
+        <li><a href="{% url 'core:services' %}" class="site-footer__link text-body-md">Послуги</a></li>
+        <li><a href="{% url 'core:portfolio' %}" class="site-footer__link text-body-md">Портфоліо</a></li>
+        <li><a href="{% url 'core:about' %}" class="site-footer__link text-body-md">Про нас</a></li>
+        <li><a href="{% url 'core:contacts' %}#faq" class="site-footer__link text-body-md">Питання</a></li>
+        <li><a href="{% url 'core:contacts' %}#contacts" class="site-footer__link text-body-md">Контакти</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col-2">
+      <h5 class="text-label-caps footer-heading">Правова інформація</h5>
+      <ul class="footer-list">
+        <li><a href="{% url 'core:privacy' %}" class="site-footer__link text-body-md">Політика конфіденційності</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col-3">
+      <h5 class="text-label-caps footer-heading">Контакти</h5>
+      <address class="text-body-md text-muted">
+        <p class="contact-info-item">
+          <span class="material-symbols-outlined">location_on</span>
+          {{ site_contact.location }}
+        </p>
+        <p class="contact-info-item">
+          <span class="material-symbols-outlined">call</span>
+          <a href="tel:{{ site_contact.phone_tel }}">{{ site_contact.phone }}</a>
+        </p>
+        <p class="contact-info-item">
+          <span class="material-symbols-outlined">schedule</span>
+          {{ site_hours.weekdays }}<br>{{ site_hours.weekend }}
+        </p>
+      </address>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <div class="container site-footer__bottom-inner">
+      <p class="text-body-md text-muted site-footer__copyright">© 2024 {{ site_name }}. Все для вашого даху.</p>
+      <p class="text-body-md text-muted site-footer__credit">
+        Створено командою
+        <a href="https://www.prometeylabs.com/"
+           class="site-footer__credit-link"
+           target="_blank"
+           rel="noopener noreferrer">PrometeyLabs</a>
+      </p>
+    </div>
+  </div>
+</footer>

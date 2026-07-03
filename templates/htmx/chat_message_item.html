@@ -1,0 +1,8 @@
+<div class="chat-message chat-message--{{ message.sender }}" data-message-id="{{ message.id }}">
+  <div class="chat-message__bubble">
+    <p class="chat-message__text">{{ message.text }}</p>
+    <time class="chat-message__time" datetime="{{ message.created_at|date:'c' }}">
+      {{ message.created_at|date:'H:i' }}
+    </time>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+{% for item in portfolio_items %}
+<article class="home-portfolio__item">
+  <img src="{{ item.image }}" alt="{{ item.alt }}" width="800" height="600" loading="lazy">
+  <div class="home-portfolio__overlay">
+    <div class="home-portfolio__date">{{ item.date }}</div>
+    <div class="home-portfolio__name">{{ item.title }}</div>
+  </div>
+</article>
+{% endfor %}

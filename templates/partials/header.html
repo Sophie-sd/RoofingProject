@@ -1,0 +1,32 @@
+{% load static %}
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="{% url 'core:home' %}" class="site-header__brand" aria-label="{{ site_name }} — на головну">
+      {% include 'partials/logo_brand.html' %}
+    </a>
+
+    <nav class="site-nav" aria-label="Головна навігація">
+      {% for link in nav_links %}
+      <a href="{{ link.href }}"
+         class="site-nav__link{% if link.is_active %} site-nav__link--active{% endif %}"
+         data-nav-section="{{ link.key }}">{{ link.label }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="{{ estimate_url }}" class="btn btn--primary mobile-hidden">Безкоштовний кошторис</a>
+      <button type="button"
+              class="menu-toggle md-hidden"
+              aria-label="Відкрити меню"
+              hx-get="{% url 'core:htmx_mobile_nav' %}?open=1"
+              hx-target="#mobile-nav-root"
+              hx-swap="innerHTML">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-nav-root">
+  {% include 'partials/mobile_nav.html' with mobile_nav_open=False %}
+</div>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Наші роботи — {{ site_name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/portfolio.css' %}?v=2">
+{% endblock %}
+
+{% block content %}
+{% include 'partials/page_hero.html' %}
+
+<section class="home-portfolio">
+  <div class="site-container">
+    <div class="site-filter-bar">
+      {% for filter in portfolio_filters %}
+      <button type="button"
+              class="site-filter-btn{% if active_category == filter.slug %} is-active{% endif %}"
+              hx-get="{% url 'core:htmx_portfolio' %}?category={{ filter.slug }}"
+              hx-target="#portfolio-grid"
+              hx-swap="innerHTML">
+        {{ filter.label }}
+      </button>
+      {% endfor %}
+    </div>
+    <div id="portfolio-grid" class="home-portfolio__grid home-portfolio__grid--3">
+      {% include 'htmx/portfolio_grid.html' %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/page_cta.html' %}
+{% endblock %}

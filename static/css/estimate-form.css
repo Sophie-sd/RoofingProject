@@ -1,0 +1,44 @@
+.estimate-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.home-cta-form__select {
+  cursor: pointer;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f2ece3' fill-opacity='0.55' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+}
+
+.home-cta-form__select option {
+  color: #1a1714;
+  background: #f2ece3;
+}
+
+@media (max-width: 767px) {
+  .estimate-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .estimate-form .home-cta-form__input,
+  .estimate-form .home-cta-form__select {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .estimate-form .home-cta-form__input,
+  .estimate-form .home-cta-form__select {
+    min-height: 44px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .estimate-form .home-cta-form__select {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}{{ site_name }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Професійний монтаж покрівлі будь-якої складності. Скандинавська якість та безкомпромісна надійність.{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=11">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}?v=9">
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=9">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=22">
+  <link rel="stylesheet" href="{% static 'css/animations.css' %}?v=9">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}?v=22">
+  <link rel="stylesheet" href="{% static 'css/site-theme.css' %}?v=4">
+  <link rel="stylesheet" href="{% static 'css/site-ui.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/site-sections.css' %}?v=6">
+  <link rel="stylesheet" href="{% static 'css/site-layout.css' %}?v=4">
+  <link rel="stylesheet" href="{% static 'css/site-responsive.css' %}?v=6">
+  <link rel="stylesheet" href="{% static 'css/estimate-form.css' %}?v=1">
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}?v=1">
+  {% block extra_css %}{% endblock %}
+  <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+  <script>
+    document.addEventListener('htmx:configRequest', function(event) {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+  </script>
+</head>
+<body class="site-page {% block body_class %}{% endblock %}">
+  {% include 'partials/header.html' %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  {% include 'partials/footer.html' %}
+  {% include 'partials/chat_widget.html' %}
+  <script type="module" src="{% static 'js/main.js' %}?v=5"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

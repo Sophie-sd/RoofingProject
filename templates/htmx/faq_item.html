@@ -1,0 +1,15 @@
+{% for item in faq_items %}
+<div class="site-faq-item{% if item.is_open %} is-open{% endif %}">
+  <button type="button"
+          class="site-faq-trigger"
+          hx-get="{% url 'core:htmx_faq_toggle' item.id %}?open={% if item.is_open %}{{ item.id }}{% endif %}"
+          hx-target="#faq-list"
+          hx-swap="innerHTML">
+    <span>{{ item.question }}</span>
+    <span class="material-symbols-outlined chevron-icon" aria-hidden="true">expand_more</span>
+  </button>
+  <div class="site-faq-content">
+    <div class="site-faq-content__inner">{{ item.answer }}</div>
+  </div>
+</div>
+{% endfor %}

@@ -1,0 +1,70 @@
+:root {
+  --color-surface: #f2ece3;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f2ece3;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #ece5d9;
+  --color-surface-container: #e8e2d8;
+  --color-surface-container-high: #e2dcd2;
+  --color-surface-container-highest: #d6cfc5;
+  --color-on-surface: #1a1714;
+  --color-on-surface-variant: #635b52;
+  --color-inverse-surface: #1a1714;
+  --color-inverse-on-surface: #f2ece3;
+  --color-outline: #7b776e;
+  --color-outline-variant: #d6cfc5;
+  --color-primary: #8c5d28;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #c4a27a;
+  --color-on-primary-container: #1a1714;
+  --color-secondary: #5e5e5e;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ece5d9;
+  --color-tertiary: #635e55;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-background: #f2ece3;
+  --color-on-background: #1a1714;
+
+  --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --text-display-lg: clamp(2rem, 5vw, 4rem);
+  --text-headline-lg: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-headline-md: clamp(1.125rem, 2vw, 1.5rem);
+  --text-body-lg: clamp(1rem, 1.5vw, 1.125rem);
+  --text-body-md: 1rem;
+  --text-label-caps: 0.75rem;
+
+  --lh-display: 1.125;
+  --lh-headline: 1.2;
+  --lh-body: 1.5;
+  --ls-label: 0.15em;
+
+  --space-base: 8px;
+  --space-gutter: 24px;
+  --space-section-desktop: 80px;
+  --space-section-tablet: 56px;
+  --space-section-mobile: 20px;
+  --container-max: 1280px;
+  --header-height: 88px;
+
+  --radius: 0;
+  --border-width: 1px;
+  --border-width-focus: 2px;
+
+  --t-fast: 150ms ease;
+  --t-base: 250ms ease;
+  --t-slow: 400ms ease;
+
+  --z-nav: 100;
+  --z-drawer: 200;
+  --z-modal: 400;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --vh: 100dvh;
+}

@@ -1,0 +1,51 @@
+<form hx-post="{% url 'core:htmx_estimate_request' %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      class="home-cta-form estimate-form">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <div class="home-cta-form__error">{{ form.non_field_errors }}</div>
+  {% endif %}
+  <h3 class="home-cta-form__title">{{ form_title|default:'Безкоштовний кошторис' }}</h3>
+  <p class="home-cta-form__hint">{{ form_hint|default:callback_hint }}</p>
+
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.settlement.id_for_label }}">{{ form.settlement.label }}</label>
+    {{ form.settlement }}
+    {% if form.settlement.errors %}<div class="home-cta-form__error">{{ form.settlement.errors.0 }}</div>{% endif %}
+  </div>
+
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.work_type.id_for_label }}">{{ form.work_type.label }}</label>
+    {{ form.work_type }}
+    {% if form.work_type.errors %}<div class="home-cta-form__error">{{ form.work_type.errors.0 }}</div>{% endif %}
+  </div>
+
+  <div class="estimate-form__row">
+    <div class="home-cta-form__field">
+      <label class="home-cta-form__label" for="{{ form.area.id_for_label }}">{{ form.area.label }}</label>
+      {{ form.area }}
+      {% if form.area.errors %}<div class="home-cta-form__error">{{ form.area.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="home-cta-form__field">
+      <label class="home-cta-form__label" for="{{ form.floors.id_for_label }}">{{ form.floors.label }}</label>
+      {{ form.floors }}
+      {% if form.floors.errors %}<div class="home-cta-form__error">{{ form.floors.errors.0 }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.material.id_for_label }}">{{ form.material.label }}</label>
+    {{ form.material }}
+    {% if form.material.errors %}<div class="home-cta-form__error">{{ form.material.errors.0 }}</div>{% endif %}
+  </div>
+
+  <div class="home-cta-form__field">
+    <label class="home-cta-form__label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+    {{ form.phone }}
+    {% if form.phone.errors %}<div class="home-cta-form__error">{{ form.phone.errors.0 }}</div>{% endif %}
+  </div>
+
+  <input type="hidden" name="source" value="{{ form_source|default:'page' }}">
+  <button type="submit" class="home-cta-form__submit">{{ submit_label|default:'Отримати кошторис безкоштовно' }}</button>
+</form>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Про нас — {{ site_name }}{% endblock %}
+
+{% block content %}
+{% include 'partials/page_hero.html' %}
+
+<section class="home-about">
+  <div class="home-about__grid">
+    <div class="home-about__media">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6mVQoa4TMNuVBLjjzyhLT0stxReIKM9k4iIuTQUGH50uVjCn_yBZ325GbqT1Zu8c6UMXQ492lF2BJQVWfZOguVVr9DYqjgeIK7KSQJkxs9LrKiP51y3gGnTDEJrCWQi0S61QUMcXzlCIIF-pJfmkIf91rornWTb3W1R71WzWBLW5sA4ldafgCkwESYkUemKBKKz84AlPPXFJSbQ1VrmDRDb683lL2jNuRznO3i2fWPhiJMmWuPXKeiRONXjZLzwlvZ9TJkEchGC-E" alt="Сучасна покрівля з standing seam панелями" width="800" height="1000" loading="lazy">
+      <div class="home-about__badge">
+        <div class="home-about__badge-num">{{ site_stats.experience }}</div>
+        <div class="home-about__badge-text">Років<br>досвіду</div>
+      </div>
+    </div>
+    <div class="home-about__body">
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">Наша історія</span>
+      </div>
+      <h2 class="home-section-title">Майстерність, якій довіряють</h2>
+      <p class="home-text">Заснована у 2005 році монтажна бригада «покрівля під ключ» стала провідним гравцем на ринку покрівельних систем Київської області.</p>
+      <p class="home-text">Наша місія — забезпечити кожну будівлю дахом, що служить поколінням. Прозорість кошторису, матеріали найвищого гатунку та суворе дотримання технологічних карт.</p>
+    </div>
+  </div>
+</section>
+
+<section class="home-services">
+  <div class="home-services__wrap">
+    <div class="home-services__header">
+      <div>
+        <div class="home-section-eyebrow">
+          <span class="home-eyebrow-line" aria-hidden="true"></span>
+          <span class="home-eyebrow-text home-eyebrow-text--accent">Переваги</span>
+        </div>
+        <h2 class="home-section-title">Чому обирають нас?</h2>
+      </div>
+    </div>
+    <div class="home-services__grid home-services__grid--4">
+      {% for item in about_features %}
+      <article class="home-service-card home-service-card--accent">
+        <span class="material-symbols-outlined home-service-card__icon" aria-hidden="true">{{ item.icon }}</span>
+        <h3 class="home-service-card__title">{{ item.title }}</h3>
+        <p class="home-service-card__text">{{ item.text }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/page_cta.html' %}
+{% endblock %}

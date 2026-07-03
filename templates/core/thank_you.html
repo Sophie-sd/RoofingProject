@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Дякуємо — {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="site-thank-you">
+  <div class="site-thank-you__card reveal">
+    <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+    <h1 class="home-section-title home-section-title--light">Дякуємо за ваш запит!</h1>
+    <p class="home-text home-text--light">
+      Ми отримали ваше повідомлення. Наш менеджер зв'яжеться з вами протягом одного робочого дня.
+    </p>
+    <div class="site-thank-you__actions">
+      <a href="{% url 'core:home' %}" class="home-btn home-btn--accent">На головну</a>
+      <a href="{% url 'core:portfolio' %}" class="home-btn home-btn--ghost">Наші роботи</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

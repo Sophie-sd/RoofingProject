@@ -1,0 +1,11 @@
+{% for message in messages %}
+{% include 'htmx/chat_message_item.html' %}
+{% endfor %}
+{% if not is_poll %}
+<input type="hidden" id="chat-after-id" name="after_id" value="{{ after_id }}" hx-swap-oob="true">
+{% if error %}
+<div class="chat-widget__error" role="alert">{{ error }}</div>
+{% endif %}
+{% elif messages %}
+<input type="hidden" id="chat-after-id" name="after_id" value="{{ after_id }}" hx-swap-oob="true">
+{% endif %}

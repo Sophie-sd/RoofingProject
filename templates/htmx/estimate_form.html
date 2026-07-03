@@ -1,0 +1,14 @@
+<form hx-post="{% url 'core:htmx_estimate' %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      class="form-row form-row--inline max-w-lg form-centered">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <div class="form-error">{{ form.non_field_errors }}</div>
+  {% endif %}
+  <div class="form-group">
+    {{ form.email }}
+    {% if form.email.errors %}<div class="form-error">{{ form.email.errors.0 }}</div>{% endif %}
+  </div>
+  <button type="submit" class="btn btn--primary">Надіслати запит</button>
+</form>

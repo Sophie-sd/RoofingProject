@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}home-page{% endblock %}
+{% block title %}Покрівля під ключ — Скандинавська якість покрівлі{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}?v=5">
+<link rel="stylesheet" href="{% static 'css/pages/home-2.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'css/pages/home-responsive.css' %}?v=6">
+{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+  <img src="{{ hero_image }}" alt="" class="home-hero__bg" width="1920" height="1080">
+  <div class="home-hero__overlay" aria-hidden="true"></div>
+  <div class="home-hero__inner">
+    <div class="home-hero__content">
+      <h1 class="home-hero__title">
+        НАДІЙНА<br>ПОКРІВЛЯ.<br><span class="home-hero__title-accent">ПІД КЛЮЧ.</span>
+      </h1>
+      <p class="home-hero__lead">
+        Монтаж і реконструкція покрівлі будь-якої складності. Якісні матеріали від європейських та українських виробників. Фіксована ціна в договорі.
+      </p>
+      <div class="home-hero__actions">
+        <a href="#contact" class="home-btn home-btn--accent">Безкоштовний кошторис</a>
+        <a href="#portfolio" class="home-btn home-btn--ghost">
+          Наші роботи <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="home-hero__stats">
+    <div class="home-hero__stats-grid">
+      <div class="home-hero__stat">
+        <div class="home-hero__stat-value">{{ site_stats.projects }}</div>
+        <div class="home-hero__stat-label">Проектів</div>
+      </div>
+      <div class="home-hero__stat">
+        <div class="home-hero__stat-value">{{ site_stats.experience }}</div>
+        <div class="home-hero__stat-label">Років досвіду</div>
+      </div>
+      <div class="home-hero__stat">
+        <div class="home-hero__stat-value home-hero__stat-value--accent">{{ site_stats.warranty_years }}р.</div>
+        <div class="home-hero__stat-label">Гарантія монтажу</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="home-marquee" aria-hidden="true">
+  <div class="home-marquee__track">
+    {% for _ in "12" %}
+    <div class="home-marquee__row">
+      {% for item in marquee_items %}
+      <span>{{ item }}</span><span class="home-marquee__dot"></span>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<section id="about" class="home-about reveal">
+  <div class="home-about__grid">
+    <div class="home-about__media">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8u3vaYUv6ew2u95Q9EniGm6KvMc6ZWpEfCISGTZUQ5RmOMJMfvVYy6tvePa8CuatqzMAwVg02LQqnjfoZxREU1UcmL1xpSvItqyWX0d9xqYyk6ZJQv917-7QhS066-t1NvaghRhQQA6OORbqMYZrK3ntR94QQdqk2flXOJPxXsVqOhbPAwViRqlC_ETmnGsBV_W2OQgob6Rw2wKZRHJG_lHO7FrFhkiKwf5nOrf1nBLWmjt9epdjFgmpdtZEpiDjMGSsK5-hIZxYC" alt="Майстер за роботою" width="800" height="1000" loading="lazy">
+      <div class="home-about__badge">
+        <div class="home-about__badge-num">{{ site_stats.experience }}</div>
+        <div class="home-about__badge-text">Років<br>досвіду</div>
+      </div>
+    </div>
+    <div class="home-about__body">
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">Наша майстерність</span>
+      </div>
+      <h2 class="home-section-title">Майстерність і надійні матеріали</h2>
+      <p class="home-text">Ми не просто будуємо дахи — ми створюємо захисну оболонку вашого дому. Кожен проект базується на принципах функціональності, довговічності та візуальної гармонії.</p>
+      <p class="home-text">Сертифіковані матеріали {{ material_brands|join:", " }} — з офіційною гарантією від виробника.</p>
+      <ul class="home-checklist">
+        <li>Якісні матеріали від європейських та українських виробників</li>
+        <li>Гарантія на матеріали від виробника</li>
+        <li>Гарантія до 10 років на монтаж</li>
+        <li>Фіксована ціна без змін у договорі</li>
+      </ul>
+      <a href="{% url 'core:about' %}" class="home-link-arrow">Детальніше про нас <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="home-services reveal">
+  <div class="home-services__wrap">
+    <div class="home-services__header">
+      <div>
+        <div class="home-section-eyebrow">
+          <span class="home-eyebrow-line" aria-hidden="true"></span>
+          <span class="home-eyebrow-text home-eyebrow-text--accent">Основні послуги</span>
+        </div>
+        <h2 class="home-section-title">Комплексні рішення для покрівлі</h2>
+      </div>
+      <a href="{% url 'core:services' %}" class="home-link-subtle">Всі послуги <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+    <div class="home-services__grid">
+      {% for item in services_preview %}
+      <article class="home-service-card home-service-card--{{ item.variant }}">
+        <span class="material-symbols-outlined home-service-card__icon{% if item.variant == 'dark' %} home-service-card__icon--dark{% endif %}" aria-hidden="true">{{ item.icon }}</span>
+        <h3 class="home-service-card__title">{{ item.title }}</h3>
+        <p class="home-service-card__text">{{ item.text }}</p>
+        <ul class="home-service-card__list{% if item.variant == 'dark' %} home-service-card__list--dark{% endif %}">
+          {% for feature in item.features %}
+          <li>{{ feature }}</li>
+          {% endfor %}
+        </ul>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="home-portfolio reveal">
+  <div class="home-portfolio__header">
+    <div>
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">Наші роботи</span>
+      </div>
+      <h2 class="home-section-title">Реалізовані об'єкти</h2>
+    </div>
+    <a href="{% url 'core:portfolio' %}" class="home-link-subtle">Усі проекти <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+  </div>
+  <div class="home-portfolio__grid">
+    {% for item in portfolio_preview %}
+    <a href="{% url 'core:portfolio' %}" class="home-portfolio__item">
+      <img src="{{ item.image }}" alt="{{ item.alt }}" width="800" height="600" loading="lazy">
+      <div class="home-portfolio__overlay">
+        <div class="home-portfolio__date">{{ item.date }}</div>
+        <div class="home-portfolio__name">{{ item.title }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="contact" class="home-cta reveal">
+  <div class="home-cta__grid">
+    <div class="home-cta__info">
+      <div class="home-section-eyebrow">
+        <span class="home-eyebrow-line" aria-hidden="true"></span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">Розрахунок вартості</span>
+      </div>
+      <h2 class="home-section-title">Готові розпочати проект?</h2>
+      <p class="home-text">Заповніть форму — ми зателефонуємо протягом дня і призначимо безкоштовний виїзд для заміру.</p>
+      <div class="home-cta__contacts">
+        <a href="tel:{{ site_contact.phone_tel }}" class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">call</span>{{ site_contact.phone }}
+        </a>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">schedule</span>{{ site_hours.weekdays }}
+        </p>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">schedule</span>{{ site_hours.weekend }}
+        </p>
+        <p class="home-cta__contact">
+          <span class="material-symbols-outlined" aria-hidden="true">location_on</span>{{ site_contact.location }}
+        </p>
+      </div>
+    </div>
+    <div class="home-cta__form-wrap">
+      {% include 'partials/estimate_form.html' with form=estimate_form form_source='home' %}
+    </div>
+  </div>
+</section>
+{% endblock %}

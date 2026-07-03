@@ -1,0 +1,11 @@
+<span class="site-header__logo-mark{% if logo_footer %} site-header__logo-mark--footer{% else %} site-header__logo-mark--header{% endif %}">
+  <img src="{{ logo_url }}"
+       alt=""
+       class="site-header__logo{% if logo_footer %} site-header__logo--footer{% endif %}"
+       width="161"
+       height="180">
+  <span class="site-header__wordmark">
+    <span class="site-header__wordmark-line">{{ site_name_line1 }}</span>
+    <span class="site-header__wordmark-line">{{ site_name_line2 }}</span>
+  </span>
+</span>

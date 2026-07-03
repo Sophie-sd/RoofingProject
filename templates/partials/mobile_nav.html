@@ -1,0 +1,29 @@
+<div class="mobile-drawer{% if mobile_nav_open %} is-open{% endif %}" id="mobile-drawer">
+  <div class="mobile-drawer__backdrop"
+       {% if mobile_nav_open %}
+       hx-get="{% url 'core:htmx_mobile_nav' %}?open=0"
+       hx-target="#mobile-nav-root"
+       hx-swap="innerHTML"
+       {% endif %}></div>
+  <div class="mobile-drawer__panel" role="dialog" aria-modal="true" aria-label="Мобільне меню">
+    <div class="mobile-drawer__header">
+      <span class="mobile-drawer__title text-label-caps">Меню</span>
+      <button type="button"
+              class="mobile-drawer__close-btn"
+              aria-label="Закрити меню"
+              hx-get="{% url 'core:htmx_mobile_nav' %}?open=0"
+              hx-target="#mobile-nav-root"
+              hx-swap="innerHTML">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      {% for link in nav_links %}
+      <a href="{{ link.href }}"
+         class="mobile-nav__link{% if link.is_active %} mobile-nav__link--active{% endif %}"
+         data-nav-section="{{ link.key }}">{{ link.label }}</a>
+      {% endfor %}
+      <a href="{{ estimate_url }}" class="btn btn--primary btn--block mobile-nav__cta">Безкоштовний кошторис</a>
+    </nav>
+  </div>
+</div>
