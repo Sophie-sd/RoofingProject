@@ -1,3 +1,5 @@
+from .portfolio_data import PORTFOLIO_FILTERS, PORTFOLIO_ITEMS
+
 SITE_CONTACT = {
     'owner': 'Юра',
     'location': 'Біла Церква, Київська обл.',
@@ -198,61 +200,3 @@ FAQ_ITEMS = [
     },
 ]
 
-PORTFOLIO_ITEMS = [
-    {
-        'id': 1,
-        'title': 'Вілла Скандинавія',
-        'category': 'metal',
-        'date': 'Жовтень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuACnzOywWOGtfsUflRdnWIOSn4nwudxyaDqSQnnO5JTK0z_K5c_Gpqf6cN9VuE601o_8jNAix_jOb7fUxKh5fChunTsiLGiAfsW9_S6LHoFcyLtTW4GVrf_1M0nI44mXljCS9SADu1F9fAVUj5yPITuSRR_nuRjbxxkrhaLBk4B7DiLKmJhK-fVfyO_i6v5Jq2UHCBWGj718HPUQ65PVk8oX77MuPCxxg2xK1tXXZ8Ud-0TKiEPBZw1YAMH8Q2f8p7OJU50wXV2-tAc',
-        'alt': 'Сучасна вілла з цинковим дахом',
-    },
-    {
-        'id': 2,
-        'title': 'Чорна кераміка',
-        'category': 'ceramic',
-        'date': 'Серпень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgkkYZhttrx104m0_WNF4zbhxJgj5zPPmk7_cczF9050s1DOxqX-vl4Wj-ScNJP3pAa3uXSIyAZeHRd60pZJUbPjRePpqrdeQxWfg4l11FFWrSjBnacxmIuloLGgi2Scqpi7toZhIgsU5Q5DgnXc1_ec2yhmp2Mbucey4uOK-gbV1A_-m0DaL8rAJa03tIlyBPnbzppQxJH0DRzQ_zugKgvJU83hAmtEaN_BYf-E9CRgEYHI2a1jXVu1cNTtHBDytRWyjjppFHogI2',
-        'alt': 'Деталі чорної керамічної черепиці',
-    },
-    {
-        'id': 3,
-        'title': 'Сонячний офіс',
-        'category': 'commercial',
-        'date': 'Червень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuBfZ_AKetEhA6f5NKEPZYDuDiP1wCDcHNZR-iIv-YWnTqa30LCPS1uTVNTQZb1b9qkQdGzPiZUIaF7uINK2NuLXkitkAqSHYHpmeqLXdYAYLjbV1HBcvN8G_6GlErVfqCgHzqkeai4kSK4g31VuIrwzknpgKXc3B2RsAVPoXME5p0NtlzsJk-vw8xJgmhZkysSbHLBPI8MlZMNxsF36UqPwtn15UoD7TWquBwHsRHCUehr49tkSfQXsysrtKIoErc-sj3QpR16g6RwR',
-        'alt': 'Сучасний офіс з сонячними панелями',
-    },
-    {
-        'id': 4,
-        'title': 'Сланцевий мінімалізм',
-        'category': 'slate',
-        'date': 'Травень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuC8u3vaYUv6ew2u95Q9EniGm6KvMc6ZWpEfCISGTZUQ5RmOMJMfvVYy6tvePa8CuatqzMAwVg02LQqnjfoZxREU1UcmL1xpSvItqyWX0d9xqYyk6ZJQv917-7QhS066-t1NvaghRhQQA6OORbqMYZrK3ntR94QQdqk2flXOJPxXsVqOhbPAwViRqlC_ETmnGsBV_W2OQgob6Rw2wKZRHJG_lHO7FrFhkiKwf5nOrf1nBLWmjt9epdjFgmpdtZEpiDjMGSsK5-hIZxYC',
-        'alt': 'Мінімалістична сланцева покрівля',
-    },
-    {
-        'id': 5,
-        'title': 'Реставрація спадщини',
-        'category': 'ceramic',
-        'date': 'Березень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuCy9Tu23ZqywayYBdG1Tc1d50dJJtZMrqLAdVXgz7vtgk0scQ8inbBQGowhA8k2Cu35hk-GPdyCQOB_swaDm_Oy8w9ACh9cOTQxvWOL-YMRbzUXy3P8hmQxQnHrA0kShEnOQT36XQet7TGyNPdJpMKtkQeytW0hp4dWdOWvNy0dm-sCp4sXcCBzlV8QBmww2rEcxD9aF-bkRtgUNsaYJXjspYDDhGZf0rhbns5I_Znop7zzscLdcNC7Pkjw_VYJjl3rq74s9XXay1lC',
-        'alt': 'Реставрація історичної покрівлі',
-    },
-    {
-        'id': 6,
-        'title': 'Промисловий комплекс',
-        'category': 'commercial',
-        'date': 'Січень 2023',
-        'image': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAtrw_-iY-Lz66EAcHkdZloiwIMH5JiKHg0naK2DLnxtaJQqorrdsSNnpXlreXJcPwYG_hcEQpbjLkfmXnCpk_nH98TdMkfk-zWSv4qZt6gA1-cCtFSUDqXlXjADFfTHJEjHZuOGeXlj0eN1scS1tzdrOL8dq7axGOQgGFMpVgC_2VOcjxnkK96N3_-kvlH7M1b3-CoSXjM0SA5zLPjmzMzMiegITkLq0Zop84ijuos7Ier7Uia-h7elgPanh1ZKP2XTGsmRB3KiSjm',
-        'alt': 'Промисловий покрівельний комплекс',
-    },
-]
-
-PORTFOLIO_FILTERS = [
-    {'slug': 'all', 'label': 'Усі проекти'},
-    {'slug': 'metal', 'label': 'Метал'},
-    {'slug': 'ceramic', 'label': 'Кераміка'},
-    {'slug': 'slate', 'label': 'Сланець'},
-    {'slug': 'commercial', 'label': 'Комерційні'},
-]

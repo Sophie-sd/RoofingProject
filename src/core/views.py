@@ -90,10 +90,10 @@ class PortfolioView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = self.request.GET.get('category', 'all')
+        city = self.request.GET.get('city', 'all')
         items = PORTFOLIO_ITEMS
-        if category != 'all':
-            items = [item for item in PORTFOLIO_ITEMS if item['category'] == category]
+        if city != 'all':
+            items = [item for item in PORTFOLIO_ITEMS if item['city'] == city]
         context.update({
             'active_nav': 'portfolio',
             'hero_image': HERO_HOME_URL,
@@ -105,7 +105,7 @@ class PortfolioView(TemplateView):
             ),
             'portfolio_items': items,
             'portfolio_filters': PORTFOLIO_FILTERS,
-            'active_category': category,
+            'active_city': city,
             'estimate_form': EstimateRequestForm(),
             'form_source': 'portfolio',
         })
@@ -205,13 +205,13 @@ def htmx_callback(request):
 
 @require_http_methods(['GET'])
 def htmx_portfolio(request):
-    category = request.GET.get('category', 'all')
+    city = request.GET.get('city', 'all')
     items = PORTFOLIO_ITEMS
-    if category != 'all':
-        items = [item for item in PORTFOLIO_ITEMS if item['category'] == category]
+    if city != 'all':
+        items = [item for item in PORTFOLIO_ITEMS if item['city'] == city]
     return render(request, 'htmx/portfolio_grid.html', {
         'portfolio_items': items,
-        'active_category': category,
+        'active_city': city,
     })
 
 

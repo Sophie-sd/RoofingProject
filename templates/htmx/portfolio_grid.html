@@ -1,9 +1,13 @@
 {% for item in portfolio_items %}
 <article class="home-portfolio__item">
-  <img src="{{ item.image }}" alt="{{ item.alt }}" width="800" height="600" loading="lazy">
+  <img src="{{ item.image }}" alt="{{ item.alt }}" width="800" height="600" loading="lazy" decoding="async">
   <div class="home-portfolio__overlay">
+    {% if item.date %}
     <div class="home-portfolio__date">{{ item.date }}</div>
+    {% endif %}
     <div class="home-portfolio__name">{{ item.title }}</div>
   </div>
 </article>
+{% empty %}
+<p class="home-portfolio__empty">Роботи для цього міста поки відсутні.</p>
 {% endfor %}

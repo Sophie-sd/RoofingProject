@@ -4,7 +4,7 @@
 {% block title %}Наші роботи — {{ site_name }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pages/portfolio.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/pages/portfolio.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
@@ -12,13 +12,14 @@
 
 <section class="home-portfolio">
   <div class="site-container">
-    <div class="site-filter-bar">
+    <div class="site-filter-bar" role="group" aria-label="Фільтр за містом">
       {% for filter in portfolio_filters %}
       <button type="button"
-              class="site-filter-btn{% if active_category == filter.slug %} is-active{% endif %}"
-              hx-get="{% url 'core:htmx_portfolio' %}?category={{ filter.slug }}"
+              class="site-filter-btn{% if active_city == filter.slug %} is-active{% endif %}"
+              hx-get="{% url 'core:htmx_portfolio' %}?city={{ filter.slug }}"
               hx-target="#portfolio-grid"
-              hx-swap="innerHTML">
+              hx-swap="innerHTML"
+              onclick="this.parentElement.querySelectorAll('.site-filter-btn').forEach(function(b){b.classList.remove('is-active')});this.classList.add('is-active')">
         {{ filter.label }}
       </button>
       {% endfor %}
