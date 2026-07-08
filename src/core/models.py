@@ -29,7 +29,7 @@ class TelegramConversation(models.Model):
     updated_at = models.DateTimeField('Оновлено', auto_now=True)
 
     class Meta:
-        verbose_name = 'Розмова в чаті'
+        verbose_name = 'розмову в чаті'
         verbose_name_plural = 'Розмови в чаті'
         ordering = ['-updated_at']
 
@@ -58,7 +58,7 @@ class TelegramMessage(models.Model):
     is_read = models.BooleanField('Прочитано', default=False)
 
     class Meta:
-        verbose_name = 'Повідомлення чату'
+        verbose_name = 'повідомлення чату'
         verbose_name_plural = 'Повідомлення чату'
         ordering = ['created_at']
 
