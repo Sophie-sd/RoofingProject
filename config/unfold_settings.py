@@ -168,6 +168,17 @@ UNFOLD = {
                 ],
             },
             {
+                'title': 'Заявки',
+                'separator': True,
+                'items': [
+                    {
+                        'title': 'Заявки на кошторис',
+                        'icon': 'request_quote',
+                        'link': reverse_lazy('admin:core_estimaterequest_changelist'),
+                    },
+                ],
+            },
+            {
                 'title': 'Чат',
                 'separator': True,
                 'items': [

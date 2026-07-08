@@ -4,7 +4,7 @@
 {% block title %}Наші роботи — {{ site_name }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pages/portfolio.css' %}?v=3">
+<link rel="stylesheet" href="{% static 'css/pages/portfolio.css' %}?v=4">
 {% endblock %}
 
 {% block content %}
@@ -16,14 +16,36 @@
       {% for filter in portfolio_filters %}
       <button type="button"
               class="site-filter-btn{% if active_city == filter.slug %} is-active{% endif %}"
+              data-city="{{ filter.slug }}"
               hx-get="{% url 'core:htmx_portfolio' %}?city={{ filter.slug }}"
               hx-target="#portfolio-grid"
               hx-swap="innerHTML"
-              onclick="this.parentElement.querySelectorAll('.site-filter-btn').forEach(function(b){b.classList.remove('is-active')});this.classList.add('is-active')">
+              onclick="this.parentElement.querySelectorAll('.site-filter-btn').forEach(function(b){b.classList.remove('is-active')});this.classList.add('is-active');var s=document.getElementById('portfolio-city-select');if(s){s.value=this.dataset.city;}">
         {{ filter.label }}
       </button>
       {% endfor %}
     </div>
+
+    <label class="site-filter-select-wrap" for="portfolio-city-select">
+      <span class="sr-only">Місто</span>
+      <select
+        id="portfolio-city-select"
+        class="site-filter-select"
+        aria-label="Фільтр за містом"
+        hx-get="{% url 'core:htmx_portfolio' %}"
+        hx-target="#portfolio-grid"
+        hx-swap="innerHTML"
+        hx-trigger="change"
+        name="city"
+        onchange="document.querySelectorAll('.site-filter-btn').forEach(function(b){b.classList.toggle('is-active', b.dataset.city===this.value);})"
+      >
+        {% for filter in portfolio_filters %}
+        <option value="{{ filter.slug }}"{% if active_city == filter.slug %} selected{% endif %}>{{ filter.label }}</option>
+        {% endfor %}
+      </select>
+      <span class="material-symbols-outlined site-filter-select__icon" aria-hidden="true">expand_more</span>
+    </label>
+
     <div id="portfolio-grid" class="home-portfolio__grid home-portfolio__grid--3">
       {% include 'htmx/portfolio_grid.html' %}
     </div>

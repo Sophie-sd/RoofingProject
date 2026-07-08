@@ -10,6 +10,7 @@ from core.admin_forms import ContentPageAdminForm, HomeBlockAdminForm
 from .models import (
     AboutFeature,
     ContentPage,
+    EstimateRequest,
     FaqItem,
     HomeBlock,
     MarqueeItem,
@@ -285,6 +286,53 @@ class MarqueeItemAdmin(ModelAdmin):
     list_filter = ('is_active',)
     search_fields = ('text',)
     ordering = ('order', 'pk')
+
+
+@admin.register(EstimateRequest)
+class EstimateRequestAdmin(ModelAdmin):
+    list_display = (
+        'created_at',
+        'settlement',
+        'phone',
+        'work_type',
+        'area',
+        'material',
+        'source',
+        'is_processed',
+    )
+    list_filter = ('is_processed', 'work_type', 'material', 'source', 'created_at')
+    search_fields = ('settlement', 'phone', 'source')
+    list_editable = ('is_processed',)
+    readonly_fields = (
+        'settlement',
+        'work_type',
+        'area',
+        'floors',
+        'material',
+        'phone',
+        'source',
+        'created_at',
+    )
+    ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
+
+    fieldsets = (
+        ('Заявка', {
+            'fields': (
+                'settlement',
+                'phone',
+                'work_type',
+                'area',
+                'floors',
+                'material',
+                'source',
+                'created_at',
+            ),
+        }),
+        ('Статус', {
+            'fields': ('is_processed',),
+        }),
+    )
 
 
 @admin.register(TelegramConversation)

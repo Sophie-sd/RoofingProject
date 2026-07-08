@@ -1,5 +1,9 @@
+from unittest.mock import patch
+
 from django.test import Client, TestCase
 from django.urls import reverse
+
+from core.models import EstimateRequest
 
 
 class PageViewsTest(TestCase):
@@ -91,7 +95,8 @@ class HtmxViewsTest(TestCase):
         self.assertEqual(response.status_code, 204)
         self.assertEqual(response['HX-Redirect'], reverse('core:thank_you'))
 
-    def test_estimate_request_form_valid_redirects(self):
+    @patch('core.services.leads.send_lead_notification', return_value=True)
+    def test_estimate_request_form_valid_redirects(self, _mock_tg):
         response = self.client.post(
             reverse('core:htmx_estimate_request'),
             {
@@ -107,6 +112,12 @@ class HtmxViewsTest(TestCase):
         )
         self.assertEqual(response.status_code, 204)
         self.assertEqual(response['HX-Redirect'], reverse('core:thank_you'))
+        lead = EstimateRequest.objects.get()
+        self.assertEqual(lead.settlement, 'Біла Церква')
+        self.assertEqual(lead.phone, '+380441234567')
+        self.assertEqual(lead.source, 'home')
+        self.assertFalse(lead.is_processed)
+        _mock_tg.assert_called_once()
 
     def test_callback_form_valid_redirects(self):
         response = self.client.post(

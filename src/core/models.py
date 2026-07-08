@@ -3,6 +3,7 @@ import string
 
 from django.db import models
 
+from .data import AREA_CHOICES, FLOORS_CHOICES, ROOF_MATERIALS, WORK_TYPE_CHOICES
 from .models_content import (  # noqa: F401
     AboutFeature,
     ContentPage,
@@ -64,3 +65,23 @@ class TelegramMessage(models.Model):
 
     def __str__(self):
         return f'{self.sender}: {self.text[:40]}'
+
+
+class EstimateRequest(models.Model):
+    settlement = models.CharField('Населений пункт', max_length=120)
+    work_type = models.CharField('Тип робіт', max_length=64, choices=WORK_TYPE_CHOICES)
+    area = models.CharField('Площа даху', max_length=32, choices=AREA_CHOICES)
+    floors = models.CharField('Поверхів будівлі', max_length=16, choices=FLOORS_CHOICES)
+    material = models.CharField('Покрівельний матеріал', max_length=64, choices=ROOF_MATERIALS)
+    phone = models.CharField('Телефон', max_length=32)
+    source = models.CharField('Джерело', max_length=64, blank=True, default='')
+    is_processed = models.BooleanField('Опрацьовано', default=False)
+    created_at = models.DateTimeField('Створено', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'заявку на кошторис'
+        verbose_name_plural = 'Заявки на кошторис'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.settlement} · {self.phone}'

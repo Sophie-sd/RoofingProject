@@ -19,7 +19,7 @@ from .content_services import (
     portfolio_city_label,
 )
 from .forms import CallbackForm, EstimateForm, EstimateRequestForm
-from .services.telegram import send_lead_notification
+from .services.leads import create_estimate_request
 
 
 def _htmx_redirect_thank_you(request):
@@ -191,7 +191,7 @@ def htmx_estimate_request(request):
     form = EstimateRequestForm(request.POST)
     source = request.POST.get('source', 'page')
     if form.is_valid():
-        send_lead_notification(form.cleaned_data, source=source)
+        create_estimate_request(form.cleaned_data, source=source)
         return _htmx_redirect_thank_you(request)
     context = {
         'form': form,
