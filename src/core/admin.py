@@ -29,7 +29,11 @@ class SiteSettingsAdmin(ModelAdmin):
             'fields': ('site_name', 'site_name_line1', 'site_name_line2'),
         }),
         ('Контакти', {
-            'fields': ('owner', 'phone', 'phone_tel', 'email', 'location'),
+            'fields': ('phone', 'email', 'location'),
+            'description': (
+                'Змінений номер телефону автоматично оновить '
+                'посилання для дзвінка (tel:) на сайті.'
+            ),
         }),
         ('Години роботи', {
             'fields': ('hours_weekdays', 'hours_weekend', 'callback_hint'),
@@ -288,6 +292,7 @@ class TelegramConversationAdmin(ModelAdmin):
     list_display = ('session_key', 'visitor_name', 'is_active', 'updated_at')
     search_fields = ('session_key', 'visitor_name')
     list_filter = ('is_active',)
+    list_display_links = ('session_key',)
 
 
 @admin.register(TelegramMessage)

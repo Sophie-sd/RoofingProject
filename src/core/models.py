@@ -22,13 +22,15 @@ def generate_session_key():
 
 
 class TelegramConversation(models.Model):
-    session_key = models.CharField(max_length=6, unique=True, db_index=True, default=generate_session_key)
-    visitor_name = models.CharField(max_length=100, blank=True)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    session_key = models.CharField('Код сесії', max_length=6, unique=True, db_index=True, default=generate_session_key)
+    visitor_name = models.CharField("Ім'я відвідувача", max_length=100, blank=True)
+    is_active = models.BooleanField('Активна', default=True)
+    created_at = models.DateTimeField('Створено', auto_now_add=True)
+    updated_at = models.DateTimeField('Оновлено', auto_now=True)
 
     class Meta:
+        verbose_name = 'Розмова в чаті'
+        verbose_name_plural = 'Розмови в чаті'
         ordering = ['-updated_at']
 
     def __str__(self):
@@ -47,14 +49,17 @@ class TelegramMessage(models.Model):
         TelegramConversation,
         on_delete=models.CASCADE,
         related_name='messages',
+        verbose_name='Розмова',
     )
-    sender = models.CharField(max_length=20, choices=SENDER_CHOICES)
-    text = models.TextField()
-    telegram_message_id = models.BigIntegerField(null=True, blank=True, db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_read = models.BooleanField(default=False)
+    sender = models.CharField('Відправник', max_length=20, choices=SENDER_CHOICES)
+    text = models.TextField('Текст')
+    telegram_message_id = models.BigIntegerField('ID у Telegram', null=True, blank=True, db_index=True)
+    created_at = models.DateTimeField('Створено', auto_now_add=True)
+    is_read = models.BooleanField('Прочитано', default=False)
 
     class Meta:
+        verbose_name = 'Повідомлення чату'
+        verbose_name_plural = 'Повідомлення чату'
         ordering = ['created_at']
 
     def __str__(self):

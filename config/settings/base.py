@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'django_htmx',
-    'core',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [

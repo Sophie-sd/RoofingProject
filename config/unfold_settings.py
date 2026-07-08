@@ -99,7 +99,7 @@ UNFOLD = {
                         'link': reverse_lazy('admin:core_homeblock_changelist'),
                     },
                     {
-                        'title': 'Marquee',
+                        'title': 'Стрічка на головній',
                         'icon': 'view_stream',
                         'link': reverse_lazy('admin:core_marqueeitem_changelist'),
                     },
@@ -172,12 +172,12 @@ UNFOLD = {
                 'separator': True,
                 'items': [
                     {
-                        'title': 'Розмови Telegram',
+                        'title': 'Розмови в чаті',
                         'icon': 'forum',
                         'link': reverse_lazy('admin:core_telegramconversation_changelist'),
                     },
                     {
-                        'title': 'Повідомлення',
+                        'title': 'Повідомлення чату',
                         'icon': 'chat',
                         'link': reverse_lazy('admin:core_telegrammessage_changelist'),
                     },

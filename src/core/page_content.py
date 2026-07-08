@@ -46,7 +46,7 @@ SITE_SETTINGS_DEFAULTS = {
 
 DEFAULT_HOME_BLOCKS = {
     'hero': {
-        'label': 'Hero',
+        'label': 'Головний банер',
         'is_visible': True,
         'title_line1': 'НАДІЙНА',
         'title_line2': 'ПОКРІВЛЯ.',
@@ -105,7 +105,7 @@ DEFAULT_HOME_BLOCKS = {
         'link_url': '/portfolio/',
     },
     'cta': {
-        'label': 'CTA / форма',
+        'label': 'Форма зворотного звʼязку',
         'is_visible': True,
         'eyebrow': 'Розрахунок вартості',
         'heading': 'Готові розпочати проект?',

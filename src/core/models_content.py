@@ -35,7 +35,7 @@ class SiteSettings(models.Model):
         help_text='Через кому',
     )
     meta_description = models.TextField(
-        'SEO description',
+        'Опис для пошуковиків (SEO)',
         blank=True,
         default=(
             'Професійний монтаж покрівлі будь-якої складності. '
@@ -86,6 +86,16 @@ class SiteSettings(models.Model):
             'weekend': self.hours_weekend,
         }
 
+    def save(self, *args, **kwargs):
+        digits = ''.join(c for c in (self.phone or '') if c.isdigit())
+        if len(digits) == 10:
+            self.phone_tel = f'+38{digits}'
+        elif len(digits) == 12 and digits.startswith('380'):
+            self.phone_tel = f'+{digits}'
+        elif digits.startswith('380') and len(digits) > 10:
+            self.phone_tel = f'+{digits}'
+        super().save(*args, **kwargs)
+
 
 class HomeBlock(models.Model):
     KEY_HERO = 'hero'
@@ -94,11 +104,11 @@ class HomeBlock(models.Model):
     KEY_PORTFOLIO = 'portfolio'
     KEY_CTA = 'cta'
     KEY_CHOICES = [
-        (KEY_HERO, 'Hero'),
+        (KEY_HERO, 'Головний банер'),
         (KEY_ABOUT, 'Про нас (превʼю)'),
         (KEY_SERVICES, 'Послуги (превʼю)'),
         (KEY_PORTFOLIO, 'Портфоліо (превʼю)'),
-        (KEY_CTA, 'CTA / форма'),
+        (KEY_CTA, 'Форма зворотного звʼязку'),
     ]
 
     key = models.SlugField('Ключ', unique=True, choices=KEY_CHOICES)
@@ -166,11 +176,11 @@ class HomeBlock(models.Model):
 
 
 class ContentPage(models.Model):
-    slug = models.SlugField('Slug', unique=True)
+    slug = models.SlugField('Код сторінки', unique=True)
     title = models.CharField('Заголовок', max_length=255)
-    eyebrow = models.CharField('Eyebrow', max_length=128, blank=True)
-    lead = models.TextField('Lead', blank=True)
-    body = models.TextField('Тіло (HTML)', blank=True)
+    eyebrow = models.CharField('Підпис над заголовком', max_length=128, blank=True)
+    lead = models.TextField('Короткий опис', blank=True)
+    body = models.TextField('Текст сторінки', blank=True)
     header_image = models.ImageField(
         'Зображення заголовку',
         upload_to='pages/',
@@ -224,8 +234,8 @@ class ServiceItem(models.Model):
     VARIANT_ACCENT = 'accent'
     VARIANT_DARK = 'dark'
     VARIANT_CHOICES = [
-        (VARIANT_ACCENT, 'Accent'),
-        (VARIANT_DARK, 'Dark'),
+        (VARIANT_ACCENT, 'Акцент'),
+        (VARIANT_DARK, 'Темний'),
     ]
 
     title = models.CharField('Заголовок', max_length=128)
@@ -374,8 +384,8 @@ class MarqueeItem(models.Model):
     is_active = models.BooleanField('Активне', default=True)
 
     class Meta:
-        verbose_name = 'Елемент marquee'
-        verbose_name_plural = 'Marquee'
+        verbose_name = 'Елемент стрічки'
+        verbose_name_plural = 'Стрічка на головній'
         ordering = ['order', 'pk']
 
     def __str__(self):
