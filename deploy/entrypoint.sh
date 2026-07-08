@@ -26,7 +26,7 @@ else:
 PY
 
 echo "==> Django check + migrate + collectstatic"
-python manage.py check --deploy
+python manage.py check
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput
 

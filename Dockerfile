@@ -21,4 +21,4 @@ RUN chmod +x deploy/entrypoint.sh
 EXPOSE 8000
 
 ENTRYPOINT ["deploy/entrypoint.sh"]
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120"]
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "2", "--timeout", "120"]

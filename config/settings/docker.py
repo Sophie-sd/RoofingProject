@@ -38,3 +38,7 @@ if _site_url:
                 ALLOWED_HOSTS.append(_host)  # noqa: F405
     if _site_url not in CSRF_TRUSTED_ORIGINS:  # noqa: F405
         CSRF_TRUSTED_ORIGINS.append(_site_url)  # noqa: F405
+
+for _internal_host in ('127.0.0.1', 'localhost', 'web'):
+    if _internal_host not in ALLOWED_HOSTS:  # noqa: F405
+        ALLOWED_HOSTS.append(_internal_host)  # noqa: F405
