@@ -133,10 +133,13 @@ class PortfolioProjectView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'active_nav': 'portfolio',
-            'hero_image': items[0]['image'],
+            'hero_image': HERO_HOME_URL,
             'hero_eyebrow': 'Портфоліо',
-            'hero_title': label,
-            'hero_lead': f'Усі фото об\'єкта в {label}',
+            'hero_title': 'Реалізовані проекти',
+            'hero_lead': (
+                'Кожен об\'єкт — поєднання архітектурної точності '
+                'та безкомпромісної якості монтажу.'
+            ),
             'project_city': city,
             'project_title': label,
             'project_images': items,
