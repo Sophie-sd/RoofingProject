@@ -15,12 +15,16 @@ ALLOWED_HOSTS = config(
 )
 
 INSTALLED_APPS = [
+    'unfold',
+    'unfold.contrib.filters',
+    'unfold.contrib.forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
     'django_htmx',
     'core',
 ]
@@ -98,3 +102,5 @@ LOGGING = {
         'django': {'handlers': ['console'], 'level': 'WARNING', 'propagate': False},
     },
 }
+
+from config.unfold_settings import TINYMCE_DEFAULT_CONFIG, UNFOLD  # noqa: E402, F401

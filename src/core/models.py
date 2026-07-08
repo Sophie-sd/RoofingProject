@@ -3,6 +3,18 @@ import string
 
 from django.db import models
 
+from .models_content import (  # noqa: F401
+    AboutFeature,
+    ContentPage,
+    FaqItem,
+    HomeBlock,
+    MarqueeItem,
+    PortfolioItem,
+    ServiceItem,
+    SiteSettings,
+    WhyUsItem,
+)
+
 
 def generate_session_key():
     alphabet = string.ascii_uppercase + string.digits

@@ -2,18 +2,18 @@ from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .data import (
-    CALLBACK_HINT,
-    LOGO_PATH,
-    MATERIAL_BRANDS,
-    NAV_ITEMS,
-    SITE_CONTACT,
-    SITE_HOURS,
-    SITE_STATS,
+from .content_services import (
+    get_material_brands,
+    get_site_contact,
+    get_site_hours,
+    get_site_settings,
+    get_site_stats,
 )
+from .data import LOGO_PATH, NAV_ITEMS
 
 
 def site_context(request):
+    settings_obj = get_site_settings()
     nav_links = []
     for item in NAV_ITEMS:
         href = reverse(item['url_name'])
@@ -25,18 +25,22 @@ def site_context(request):
             'is_active': item['key'] == _active_key(request, item),
         })
 
+    site_name = getattr(settings_obj, 'site_name', None) or 'Покрівля під ключ'
     return {
-        'site_name': 'Покрівля під ключ',
-        'site_name_line1': 'Покрівля',
-        'site_name_line2': 'під ключ',
+        'site_name': site_name,
+        'site_name_line1': getattr(settings_obj, 'site_name_line1', None) or 'Покрівля',
+        'site_name_line2': getattr(settings_obj, 'site_name_line2', None) or 'під ключ',
         'logo_url': f'{static(LOGO_PATH)}?v=8',
         'nav_links': nav_links,
         'estimate_url': reverse('core:home') + '#contact',
-        'site_contact': SITE_CONTACT,
-        'site_stats': SITE_STATS,
-        'site_hours': SITE_HOURS,
-        'material_brands': MATERIAL_BRANDS,
-        'callback_hint': CALLBACK_HINT,
+        'site_contact': get_site_contact(),
+        'site_stats': get_site_stats(),
+        'site_hours': get_site_hours(),
+        'material_brands': get_material_brands(),
+        'callback_hint': getattr(settings_obj, 'callback_hint', None) or (
+            'Відповімо протягом дня у робочий час'
+        ),
+        'meta_description': getattr(settings_obj, 'meta_description', None) or '',
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'telegram_bot_url': (
             f'https://t.me/{settings.TELEGRAM_BOT_USERNAME}'
@@ -48,20 +52,9 @@ def site_context(request):
 
 def _active_key(request, item):
     path = request.path.rstrip('/') or '/'
-    contacts_path = reverse('core:contacts').rstrip('/') or '/contacts'
-
-    if item['key'] in ('faq', 'contacts'):
-        if path != contacts_path:
-            return None
-        section = request.GET.get('section', 'faq')
-        return item['key'] if section == item['key'] else None
-
-    active_map = {
-        '/': 'home',
-        '/services': 'services',
-        '/portfolio': 'portfolio',
-        '/about': 'about',
-    }
-    if path.startswith('/portfolio'):
-        return item['key'] if item['key'] == 'portfolio' else None
-    return item['key'] if active_map.get(path) == item['key'] else None
+    if item['key'] == 'home':
+        return path == '/'
+    if item['key'] in {'faq', 'contacts'}:
+        return path.startswith('/contacts')
+    target = reverse(item['url_name']).rstrip('/') or '/'
+    return path == target or path.startswith(target + '/')

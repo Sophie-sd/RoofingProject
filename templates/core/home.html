@@ -11,21 +11,21 @@
 {% endblock %}
 
 {% block content %}
+{% with block=blocks.hero %}
+{% if block.is_visible %}
 <section class="home-hero">
-  <img src="{{ hero_image }}" alt="" class="home-hero__bg" width="1920" height="1080">
+  <img src="{{ block.image_url|default:hero_image }}" alt="" class="home-hero__bg" width="1920" height="1080">
   <div class="home-hero__overlay" aria-hidden="true"></div>
   <div class="home-hero__inner">
     <div class="home-hero__content">
       <h1 class="home-hero__title">
-        НАДІЙНА<br>ПОКРІВЛЯ.<br><span class="home-hero__title-accent">ПІД КЛЮЧ.</span>
+        {{ block.title_line1 }}<br>{{ block.title_line2 }}<br><span class="home-hero__title-accent">{{ block.title_accent }}</span>
       </h1>
-      <p class="home-hero__lead">
-        Монтаж і реконструкція покрівлі будь-якої складності. Якісні матеріали від європейських та українських виробників. Фіксована ціна в договорі.
-      </p>
+      <p class="home-hero__lead">{{ block.lead }}</p>
       <div class="home-hero__actions">
-        <a href="#contact" class="home-btn home-btn--accent">Безкоштовний кошторис</a>
-        <a href="#portfolio" class="home-btn home-btn--ghost">
-          Наші роботи <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        <a href="{{ block.cta_url }}" class="home-btn home-btn--accent">{{ block.cta_text }}</a>
+        <a href="{{ block.cta_secondary_url }}" class="home-btn home-btn--ghost">
+          {{ block.cta_secondary_text }} <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
         </a>
       </div>
     </div>
@@ -34,20 +34,23 @@
     <div class="home-hero__stats-grid">
       <div class="home-hero__stat">
         <div class="home-hero__stat-value">{{ site_stats.projects }}</div>
-        <div class="home-hero__stat-label">Проектів</div>
+        <div class="home-hero__stat-label">{{ block.stat_1_label }}</div>
       </div>
       <div class="home-hero__stat">
         <div class="home-hero__stat-value">{{ site_stats.experience }}</div>
-        <div class="home-hero__stat-label">Років досвіду</div>
+        <div class="home-hero__stat-label">{{ block.stat_2_label }}</div>
       </div>
       <div class="home-hero__stat">
         <div class="home-hero__stat-value home-hero__stat-value--accent">{{ site_stats.warranty_years }}р.</div>
-        <div class="home-hero__stat-label">Гарантія монтажу</div>
+        <div class="home-hero__stat-label">{{ block.stat_3_label }}</div>
       </div>
     </div>
   </div>
 </section>
+{% endif %}
+{% endwith %}
 
+{% if marquee_items %}
 <div class="home-marquee" aria-hidden="true">
   <div class="home-marquee__track">
     {% for _ in "12" %}
@@ -59,11 +62,14 @@
     {% endfor %}
   </div>
 </div>
+{% endif %}
 
+{% with block=blocks.about %}
+{% if block.is_visible %}
 <section id="about" class="home-about reveal">
   <div class="home-about__grid">
     <div class="home-about__media">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8u3vaYUv6ew2u95Q9EniGm6KvMc6ZWpEfCISGTZUQ5RmOMJMfvVYy6tvePa8CuatqzMAwVg02LQqnjfoZxREU1UcmL1xpSvItqyWX0d9xqYyk6ZJQv917-7QhS066-t1NvaghRhQQA6OORbqMYZrK3ntR94QQdqk2flXOJPxXsVqOhbPAwViRqlC_ETmnGsBV_W2OQgob6Rw2wKZRHJG_lHO7FrFhkiKwf5nOrf1nBLWmjt9epdjFgmpdtZEpiDjMGSsK5-hIZxYC" alt="Майстер за роботою" width="800" height="1000" loading="lazy">
+      <img src="{{ block.image_url }}" alt="Майстер за роботою" width="800" height="1000" loading="lazy">
       <div class="home-about__badge">
         <div class="home-about__badge-num">{{ site_stats.experience }}</div>
         <div class="home-about__badge-text">Років<br>досвіду</div>
@@ -72,33 +78,36 @@
     <div class="home-about__body">
       <div class="home-section-eyebrow">
         <span class="home-eyebrow-line" aria-hidden="true"></span>
-        <span class="home-eyebrow-text home-eyebrow-text--accent">Наша майстерність</span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">{{ block.eyebrow }}</span>
       </div>
-      <h2 class="home-section-title">Майстерність і надійні матеріали</h2>
-      <p class="home-text">Ми не просто будуємо дахи — ми створюємо захисну оболонку вашого дому. Кожен проект базується на принципах функціональності, довговічності та візуальної гармонії.</p>
-      <p class="home-text">Сертифіковані матеріали {{ material_brands|join:", " }} — з офіційною гарантією від виробника.</p>
+      <h2 class="home-section-title">{{ block.heading }}</h2>
+      <p class="home-text">{{ block.text_1 }}</p>
+      <p class="home-text">{{ block.text_2 }}</p>
       <ul class="home-checklist">
-        <li>Якісні матеріали від європейських та українських виробників</li>
-        <li>Гарантія на матеріали від виробника</li>
-        <li>Гарантія до 10 років на монтаж</li>
-        <li>Фіксована ціна без змін у договорі</li>
+        {% for item in block.checklist_items %}
+        <li>{{ item }}</li>
+        {% endfor %}
       </ul>
-      <a href="{% url 'core:about' %}" class="home-link-arrow">Детальніше про нас <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+      <a href="{{ block.link_url }}" class="home-link-arrow">{{ block.link_text }} <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
   </div>
 </section>
+{% endif %}
+{% endwith %}
 
+{% with block=blocks.services %}
+{% if block.is_visible %}
 <section id="services" class="home-services reveal">
   <div class="home-services__wrap">
     <div class="home-services__header">
       <div>
         <div class="home-section-eyebrow">
           <span class="home-eyebrow-line" aria-hidden="true"></span>
-          <span class="home-eyebrow-text home-eyebrow-text--accent">Основні послуги</span>
+          <span class="home-eyebrow-text home-eyebrow-text--accent">{{ block.eyebrow }}</span>
         </div>
-        <h2 class="home-section-title">Комплексні рішення для покрівлі</h2>
+        <h2 class="home-section-title">{{ block.heading }}</h2>
       </div>
-      <a href="{% url 'core:services' %}" class="home-link-subtle">Всі послуги <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+      <a href="{{ block.link_url }}" class="home-link-subtle">{{ block.link_text }} <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
     <div class="home-services__grid">
       {% for item in services_preview %}
@@ -116,17 +125,21 @@
     </div>
   </div>
 </section>
+{% endif %}
+{% endwith %}
 
+{% with block=blocks.portfolio %}
+{% if block.is_visible %}
 <section id="portfolio" class="home-portfolio reveal">
   <div class="home-portfolio__header">
     <div>
       <div class="home-section-eyebrow">
         <span class="home-eyebrow-line" aria-hidden="true"></span>
-        <span class="home-eyebrow-text home-eyebrow-text--accent">Наші роботи</span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">{{ block.eyebrow }}</span>
       </div>
-      <h2 class="home-section-title">Реалізовані об'єкти</h2>
+      <h2 class="home-section-title">{{ block.heading }}</h2>
     </div>
-    <a href="{% url 'core:portfolio' %}" class="home-link-subtle">Усі проекти <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    <a href="{{ block.link_url }}" class="home-link-subtle">{{ block.link_text }} <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
   </div>
   <div class="home-portfolio__grid">
     {% for item in portfolio_preview %}
@@ -142,16 +155,20 @@
     {% endfor %}
   </div>
 </section>
+{% endif %}
+{% endwith %}
 
+{% with block=blocks.cta %}
+{% if block.is_visible %}
 <section id="contact" class="home-cta reveal">
   <div class="home-cta__grid">
     <div class="home-cta__info">
       <div class="home-section-eyebrow">
         <span class="home-eyebrow-line" aria-hidden="true"></span>
-        <span class="home-eyebrow-text home-eyebrow-text--accent">Розрахунок вартості</span>
+        <span class="home-eyebrow-text home-eyebrow-text--accent">{{ block.eyebrow }}</span>
       </div>
-      <h2 class="home-section-title">Готові розпочати проект?</h2>
-      <p class="home-text">Заповніть форму — ми зателефонуємо протягом дня і призначимо безкоштовний виїзд для заміру.</p>
+      <h2 class="home-section-title">{{ block.heading }}</h2>
+      <p class="home-text">{{ block.lead }}</p>
       <div class="home-cta__contacts">
         <a href="tel:{{ site_contact.phone_tel }}" class="home-cta__contact">
           <span class="material-symbols-outlined" aria-hidden="true">call</span>{{ site_contact.phone }}
@@ -168,8 +185,10 @@
       </div>
     </div>
     <div class="home-cta__form-wrap">
-      {% include 'partials/estimate_form.html' with form=estimate_form form_source='home' %}
+      {% include 'partials/estimate_form.html' with form=estimate_form form_source='home' form_title=block.form_title form_hint=block.form_hint %}
     </div>
   </div>
 </section>
+{% endif %}
+{% endwith %}
 {% endblock %}
