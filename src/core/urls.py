@@ -10,6 +10,11 @@ urlpatterns = [
     path('services/', views.ServicesView.as_view(), name='services'),
     path('about/', views.AboutView.as_view(), name='about'),
     path('portfolio/', views.PortfolioView.as_view(), name='portfolio'),
+    path(
+        'portfolio/<slug:city>/',
+        views.PortfolioProjectView.as_view(),
+        name='portfolio_project',
+    ),
     path('contacts/', views.ContactsFaqView.as_view(), name='contacts'),
     path('privacy/', views.PrivacyView.as_view(), name='privacy'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank_you'),

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project_title }} — {{ site_name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/portfolio-project.css' %}?v=1">
+{% endblock %}
+
+{% block content %}
+{% include 'partials/page_hero.html' %}
+
+<section class="portfolio-project">
+  <div class="site-container">
+    <nav class="portfolio-project__back" aria-label="Навігація портфоліо">
+      <a href="{% url 'core:portfolio' %}" class="portfolio-project__back-link">
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+        Усі проекти
+      </a>
+    </nav>
+    <div class="portfolio-project__grid">
+      {% for item in project_images %}
+      <figure class="portfolio-project__item">
+        <img
+          src="{{ item.image }}"
+          alt="{{ item.alt }}"
+          width="1200"
+          height="900"
+          loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+          decoding="async">
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'partials/page_cta.html' %}
+{% endblock %}

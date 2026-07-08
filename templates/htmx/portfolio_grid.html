@@ -1,5 +1,5 @@
 {% for item in portfolio_items %}
-<article class="home-portfolio__item">
+<a href="{% url 'core:portfolio_project' city=item.city %}" class="home-portfolio__item">
   <img src="{{ item.image }}" alt="{{ item.alt }}" width="800" height="600" loading="lazy" decoding="async">
   <div class="home-portfolio__overlay">
     {% if item.date %}
@@ -7,7 +7,7 @@
     {% endif %}
     <div class="home-portfolio__name">{{ item.title }}</div>
   </div>
-</article>
+</a>
 {% empty %}
 <p class="home-portfolio__empty">Роботи для цього міста поки відсутні.</p>
 {% endfor %}

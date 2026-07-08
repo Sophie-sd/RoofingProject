@@ -62,4 +62,6 @@ def _active_key(request, item):
         '/portfolio': 'portfolio',
         '/about': 'about',
     }
+    if path.startswith('/portfolio'):
+        return item['key'] if item['key'] == 'portfolio' else None
     return item['key'] if active_map.get(path) == item['key'] else None

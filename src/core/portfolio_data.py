@@ -121,3 +121,43 @@ PORTFOLIO_ITEMS = [
     {'id': 101, 'title': 'Хотянівка', 'city': 'khotyanivka', 'image': '/static/images/portfolio/khotyanivka/IMG-20260618-WA0062.webp', 'alt': 'Покрівельні роботи, Хотянівка'},
     {'id': 102, 'title': 'Хотянівка', 'city': 'khotyanivka', 'image': '/static/images/portfolio/khotyanivka/IMG_20260615_101506.webp', 'alt': 'Покрівельні роботи, Хотянівка'},
 ]
+
+HOME_PORTFOLIO_PREVIEW = [
+    {
+        'title': 'Карпати',
+        'city': 'karpaty',
+        'image': '/static/images/portfolio/home-preview/IMG-20260618-WA0002.webp',
+        'alt': 'Покрівельні роботи, Карпати',
+    },
+    {
+        'title': 'Міжріччя',
+        'city': 'mizhrichchya',
+        'image': '/static/images/portfolio/home-preview/IMG-20260618-WA0005.webp',
+        'alt': 'Покрівельні роботи, Міжріччя',
+    },
+    {
+        'title': 'Нові Петрівці',
+        'city': 'novi-petrivtsi',
+        'image': '/static/images/portfolio/home-preview/IMG-20260618-WA0029.webp',
+        'alt': 'Покрівельні роботи, Нові Петрівці',
+    },
+    {
+        'title': 'Міжріччя',
+        'city': 'mizhrichchya',
+        'image': '/static/images/portfolio/home-preview/IMG-20260618-WA0052.webp',
+        'alt': 'Покрівельні роботи, Міжріччя',
+    },
+]
+
+PORTFOLIO_CITY_SLUGS = {item['slug'] for item in PORTFOLIO_FILTERS if item['slug'] != 'all'}
+
+
+def get_portfolio_city_label(city_slug):
+    for item in PORTFOLIO_FILTERS:
+        if item['slug'] == city_slug:
+            return item['label']
+    return city_slug
+
+
+def get_portfolio_items_for_city(city_slug):
+    return [item for item in PORTFOLIO_ITEMS if item['city'] == city_slug]

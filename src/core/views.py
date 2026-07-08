@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
@@ -8,11 +8,15 @@ from .data import (
     ABOUT_FEATURES,
     FAQ_ITEMS,
     HERO_HOME_URL,
+    HOME_PORTFOLIO_PREVIEW,
     MARQUEE_ITEMS,
+    PORTFOLIO_CITY_SLUGS,
     PORTFOLIO_FILTERS,
     PORTFOLIO_ITEMS,
     SERVICES_ITEMS,
     WHY_US_ITEMS,
+    get_portfolio_city_label,
+    get_portfolio_items_for_city,
 )
 from .forms import CallbackForm, EstimateForm, EstimateRequestForm
 from .services.telegram import send_lead_notification
@@ -37,7 +41,7 @@ class HomeView(TemplateView):
             'estimate_form': EstimateRequestForm(),
             'services_preview': SERVICES_ITEMS,
             'marquee_items': MARQUEE_ITEMS,
-            'portfolio_preview': PORTFOLIO_ITEMS[:4],
+            'portfolio_preview': HOME_PORTFOLIO_PREVIEW,
         })
         return context
 
@@ -106,6 +110,36 @@ class PortfolioView(TemplateView):
             'portfolio_items': items,
             'portfolio_filters': PORTFOLIO_FILTERS,
             'active_city': city,
+            'portfolio_links_enabled': True,
+            'estimate_form': EstimateRequestForm(),
+            'form_source': 'portfolio',
+        })
+        return context
+
+
+class PortfolioProjectView(TemplateView):
+    template_name = 'core/portfolio_project.html'
+
+    def get_context_data(self, **kwargs):
+        city = kwargs['city']
+        if city not in PORTFOLIO_CITY_SLUGS:
+            raise Http404('Проект не знайдено')
+
+        items = get_portfolio_items_for_city(city)
+        if not items:
+            raise Http404('Проект не знайдено')
+
+        label = get_portfolio_city_label(city)
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'active_nav': 'portfolio',
+            'hero_image': items[0]['image'],
+            'hero_eyebrow': 'Портфоліо',
+            'hero_title': label,
+            'hero_lead': f'Усі фото об\'єкта в {label}',
+            'project_city': city,
+            'project_title': label,
+            'project_images': items,
             'estimate_form': EstimateRequestForm(),
             'form_source': 'portfolio',
         })
@@ -212,6 +246,7 @@ def htmx_portfolio(request):
     return render(request, 'htmx/portfolio_grid.html', {
         'portfolio_items': items,
         'active_city': city,
+        'portfolio_links_enabled': True,
     })
 
 

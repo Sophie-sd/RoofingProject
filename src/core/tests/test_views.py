@@ -31,6 +31,24 @@ class PageViewsTest(TestCase):
         response = self.client.get(reverse('core:portfolio'))
         self.assertEqual(response.status_code, 200)
 
+    def test_portfolio_project_returns_200(self):
+        response = self.client.get(
+            reverse('core:portfolio_project', kwargs={'city': 'karpaty'}),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Карпати')
+
+    def test_portfolio_project_unknown_city_returns_404(self):
+        response = self.client.get(
+            reverse('core:portfolio_project', kwargs={'city': 'unknown'}),
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_home_portfolio_preview_uses_home_images(self):
+        response = self.client.get(reverse('core:home'))
+        self.assertContains(response, '/static/images/portfolio/home-preview/')
+        self.assertContains(response, reverse('core:portfolio_project', kwargs={'city': 'karpaty'}))
+
     def test_contacts_returns_200(self):
         response = self.client.get(reverse('core:contacts'))
         self.assertEqual(response.status_code, 200)
@@ -87,11 +105,14 @@ class HtmxViewsTest(TestCase):
     def test_portfolio_filter_returns_partial(self):
         response = self.client.get(
             reverse('core:htmx_portfolio'),
-            {'category': 'metal'},
+            {'city': 'karpaty'},
             HTTP_HX_REQUEST='true',
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Вілла Скандинавія')
+        self.assertContains(
+            response,
+            reverse('core:portfolio_project', kwargs={'city': 'karpaty'}),
+        )
 
     def test_faq_toggle_returns_partial(self):
         response = self.client.get(

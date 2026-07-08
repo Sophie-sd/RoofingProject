@@ -249,6 +249,8 @@
   cursor: pointer;
   aspect-ratio: 4 / 3;
   display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .home-portfolio__item img {
