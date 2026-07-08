@@ -23,6 +23,17 @@ class ChatViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'chat-message')
 
+    def test_chat_reset_clears_session(self):
+        self.client.post(
+            reverse('core:htmx_chat_send'),
+            {'visitor_name': 'Іван', 'message': 'Привіт'},
+        )
+        self.assertIn('chat_session_key', self.client.session)
+        response = self.client.post(reverse('core:htmx_chat_reset'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('chat_session_key', self.client.session)
+        self.assertContains(response, 'id="chat-after-id"')
+
     @override_settings(TELEGRAM_WEBHOOK_SECRET='test-secret')
     def test_webhook_rejects_invalid_secret(self):
         response = self.client.post(

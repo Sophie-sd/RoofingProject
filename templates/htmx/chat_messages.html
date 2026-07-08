@@ -9,3 +9,17 @@
 {% elif messages %}
 <input type="hidden" id="chat-after-id" name="after_id" value="{{ after_id }}" hx-swap-oob="true">
 {% endif %}
+{% if clear_visitor_name %}
+<input
+  type="text"
+  id="chat-visitor-name"
+  name="visitor_name"
+  class="chat-widget__input chat-widget__input--name"
+  placeholder="Ваше ім'я"
+  maxlength="100"
+  autocomplete="name"
+  value=""
+  hx-swap-oob="true"
+>
+<input type="hidden" id="chat-after-id" name="after_id" value="0" hx-swap-oob="true">
+{% endif %}

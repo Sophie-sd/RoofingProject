@@ -51,7 +51,7 @@
       class="chat-widget__messages"
       id="chat-messages-list"
       hx-get="{% url 'core:htmx_chat_messages' %}"
-      hx-trigger="chatOpen from:#chat-widget, every 4s"
+      hx-trigger="chatOpen from:#chat-widget, every 4s [document.getElementById('chat-widget')?.dataset.chatOpen==='true']"
       hx-include="#chat-after-id"
       hx-swap="beforeend"
       role="log"

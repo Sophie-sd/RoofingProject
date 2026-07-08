@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import TelegramMessage
 from .services.chat import (
+    clear_chat_session,
     get_messages_for_conversation,
     get_or_create_conversation,
     get_session_key,
@@ -124,4 +125,17 @@ def htmx_chat_messages(request):
         'visitor_name': conversation.visitor_name,
         'after_id': last_id,
         'is_poll': True,
+    })
+
+
+@require_http_methods(['POST'])
+def htmx_chat_reset(request):
+    """Clear chat session so a page reload starts a fresh conversation."""
+    clear_chat_session(request)
+    return render(request, 'htmx/chat_messages.html', {
+        'messages': [],
+        'conversation': None,
+        'after_id': 0,
+        'visitor_name': '',
+        'clear_visitor_name': True,
     })

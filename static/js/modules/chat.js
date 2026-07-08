@@ -8,6 +8,38 @@ export function initChatWidget() {
     return;
   }
 
+  const csrfToken = (
+    document.querySelector('[name=csrfmiddlewaretoken]')?.value
+    || document.cookie.match(/(?:^|; )csrftoken=([^;]*)/)?.[1]
+    || ''
+  );
+
+  // Full page load / hard refresh starts a fresh conversation.
+  fetch('/htmx/chat/reset/', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrfToken,
+      'HX-Request': 'true',
+    },
+    credentials: 'same-origin',
+  }).then(() => {
+    const list = document.getElementById('chat-messages-list');
+    if (list) {
+      list.innerHTML = '';
+    }
+    const afterId = document.getElementById('chat-after-id');
+    if (afterId) {
+      afterId.value = '0';
+    }
+    const nameInput = document.getElementById('chat-visitor-name');
+    if (nameInput) {
+      nameInput.value = '';
+      nameInput.defaultValue = '';
+    }
+  }).catch(() => {
+    // Ignore reset failures — chat remains usable.
+  });
+
   const setOpen = (isOpen) => {
     widget.dataset.chatOpen = isOpen ? 'true' : 'false';
     panel.hidden = !isOpen;

@@ -26,6 +26,7 @@ urlpatterns = [
     path('htmx/mobile-nav/', views.htmx_mobile_nav, name='htmx_mobile_nav'),
     path('htmx/chat/send/', views_chat.htmx_chat_send, name='htmx_chat_send'),
     path('htmx/chat/messages/', views_chat.htmx_chat_messages, name='htmx_chat_messages'),
+    path('htmx/chat/reset/', views_chat.htmx_chat_reset, name='htmx_chat_reset'),
     path(
         'telegram/webhook/<str:secret>/',
         views_chat.telegram_webhook,
