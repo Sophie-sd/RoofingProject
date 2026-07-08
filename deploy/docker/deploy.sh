@@ -40,8 +40,18 @@ echo "==> Build + up"
 "${COMPOSE[@]}" up -d
 
 echo "==> Waiting for healthz..."
+SITE_HOST=""
+if grep -qE '^SITE_URL=' .env; then
+  SITE_HOST="$(grep -E '^SITE_URL=' .env | tail -1 | sed -E 's#^SITE_URL=https?://([^/:]+).*#\1#' | tr -d '\r')"
+fi
+
 for _ in $(seq 1 30); do
-  if curl -sf "http://127.0.0.1/healthz/" >/dev/null 2>&1; then
+  if [[ "${USE_HTTPS}" =~ ^(true|True|1|yes|YES)$ ]]; then
+    if [[ -n "${SITE_HOST}" ]] && curl -sfk "https://127.0.0.1/healthz/" -H "Host: ${SITE_HOST}" >/dev/null 2>&1; then
+      echo "==> HTTPS healthz OK (${SITE_HOST})"
+      exit 0
+    fi
+  elif curl -sf "http://127.0.0.1/healthz/" >/dev/null 2>&1; then
     echo "==> HTTP healthz OK"
     exit 0
   fi

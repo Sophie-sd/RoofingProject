@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from decouple import config
 
 from .production import *  # noqa: F403
@@ -21,3 +23,18 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
+
+_site_url = config('SITE_URL', default='').strip().rstrip('/')
+if _site_url:
+    _hostname = urlparse(_site_url).hostname
+    if _hostname:
+        _host_candidates = {_hostname}
+        if _hostname.startswith('www.'):
+            _host_candidates.add(_hostname[4:])
+        else:
+            _host_candidates.add(f'www.{_hostname}')
+        for _host in _host_candidates:
+            if _host and _host not in ALLOWED_HOSTS:  # noqa: F405
+                ALLOWED_HOSTS.append(_host)  # noqa: F405
+    if _site_url not in CSRF_TRUSTED_ORIGINS:  # noqa: F405
+        CSRF_TRUSTED_ORIGINS.append(_site_url)  # noqa: F405
