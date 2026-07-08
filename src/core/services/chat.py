@@ -10,6 +10,12 @@ def get_session_key(request):
     return request.session.get(SESSION_KEY_NAME, '')
 
 
+def clear_chat_session(request):
+    if SESSION_KEY_NAME in request.session:
+        del request.session[SESSION_KEY_NAME]
+        request.session.modified = True
+
+
 def get_or_create_conversation(request, visitor_name=''):
     session_key = get_session_key(request)
     if session_key:
