@@ -31,6 +31,21 @@ class PageViewsTest(TestCase):
         response = self.client.get(reverse('core:portfolio'))
         self.assertEqual(response.status_code, 200)
 
+    def test_portfolio_featured_cities_appear_first(self):
+        response = self.client.get(reverse('core:portfolio'))
+        content = response.content.decode()
+        karpaty_pos = content.find('/portfolio/karpaty/')
+        mizhrichchya_pos = content.find('/portfolio/mizhrichchya/')
+        novi_pos = content.find('/portfolio/novi-petrivtsi/')
+        bilogorodka_pos = content.find('/portfolio/bilogorodka/')
+        self.assertNotEqual(karpaty_pos, -1)
+        self.assertNotEqual(mizhrichchya_pos, -1)
+        self.assertNotEqual(novi_pos, -1)
+        self.assertNotEqual(bilogorodka_pos, -1)
+        self.assertLess(karpaty_pos, mizhrichchya_pos)
+        self.assertLess(mizhrichchya_pos, novi_pos)
+        self.assertLess(novi_pos, bilogorodka_pos)
+
     def test_portfolio_project_returns_200(self):
         response = self.client.get(
             reverse('core:portfolio_project', kwargs={'city': 'karpaty'}),

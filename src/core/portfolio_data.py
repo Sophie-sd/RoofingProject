@@ -122,6 +122,20 @@ PORTFOLIO_ITEMS = [
     {'id': 102, 'title': 'Хотянівка', 'city': 'khotyanivka', 'image': '/static/images/portfolio/khotyanivka/IMG_20260615_101506.webp', 'alt': 'Покрівельні роботи, Хотянівка'},
 ]
 
+_PORTFOLIO_FEATURED_CITIES = ('karpaty', 'mizhrichchya', 'novi-petrivtsi')
+
+
+def _portfolio_item_sort_key(item):
+    city = item['city']
+    if city in _PORTFOLIO_FEATURED_CITIES:
+        tier = _PORTFOLIO_FEATURED_CITIES.index(city)
+    else:
+        tier = len(_PORTFOLIO_FEATURED_CITIES)
+    return (tier, item['id'])
+
+
+PORTFOLIO_ITEMS.sort(key=_portfolio_item_sort_key)
+
 HOME_PORTFOLIO_PREVIEW = [
     {
         'title': 'Карпати',
