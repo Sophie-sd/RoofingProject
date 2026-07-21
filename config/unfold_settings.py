@@ -90,6 +90,17 @@ UNFOLD = {
                 ],
             },
             {
+                'title': 'Аналітика / Google',
+                'separator': True,
+                'items': [
+                    {
+                        'title': 'Теги Google',
+                        'icon': 'analytics',
+                        'link': reverse_lazy('admin:core_analyticssettings_changelist'),
+                    },
+                ],
+            },
+            {
                 'title': 'Головна',
                 'collapsible': True,
                 'items': [

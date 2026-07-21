@@ -81,6 +81,14 @@ class PageViewsTest(TestCase):
         response = self.client.get(reverse('core:thank_you'))
         self.assertEqual(response.status_code, 200)
 
+    def test_home_includes_google_tags(self):
+        response = self.client.get(reverse('core:home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'GTM-WCRM2Z4W')
+        self.assertContains(response, 'AW-18337015115')
+        self.assertContains(response, 'googletagmanager.com/gtm.js')
+        self.assertContains(response, 'googletagmanager.com/gtag/js')
+
 
 class HtmxViewsTest(TestCase):
     def setUp(self):

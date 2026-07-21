@@ -97,6 +97,50 @@ class SiteSettings(models.Model):
         super().save(*args, **kwargs)
 
 
+class AnalyticsSettings(models.Model):
+    gtm_container_id = models.CharField(
+        'Google Tag Manager ID',
+        max_length=32,
+        blank=True,
+        default='GTM-WCRM2Z4W',
+        help_text='Наприклад GTM-XXXXXXX. Порожнє поле — тег вимкнено.',
+    )
+    google_ads_id = models.CharField(
+        'Google Ads ID (gtag)',
+        max_length=32,
+        blank=True,
+        default='AW-18337015115',
+        help_text='Наприклад AW-XXXXXXXXXX. Порожнє поле — тег вимкнено.',
+    )
+
+    class Meta:
+        verbose_name = 'Аналітика Google'
+        verbose_name_plural = 'Аналітика Google'
+
+    def __str__(self):
+        return 'Аналітика Google'
+
+    @classmethod
+    def get_solo(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def save(self, *args, **kwargs):
+        self.gtm_container_id = (self.gtm_container_id or '').strip().upper()
+        self.google_ads_id = (self.google_ads_id or '').strip().upper()
+        super().save(*args, **kwargs)
+
+    @property
+    def gtm_id(self):
+        value = (self.gtm_container_id or '').strip()
+        return value if value.startswith('GTM-') else ''
+
+    @property
+    def ads_id(self):
+        value = (self.google_ads_id or '').strip()
+        return value if value.startswith('AW-') else ''
+
+
 class HomeBlock(models.Model):
     KEY_HERO = 'hero'
     KEY_ABOUT = 'about'

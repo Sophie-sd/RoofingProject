@@ -2,6 +2,7 @@ from types import SimpleNamespace
 
 from .models import (
     AboutFeature,
+    AnalyticsSettings,
     ContentPage,
     FaqItem,
     HomeBlock,
@@ -60,6 +61,16 @@ def get_site_settings():
         return obj
     except Exception:
         return SimpleNamespace(**SITE_SETTINGS_DEFAULTS, brands_list=lambda: [])
+
+
+def get_analytics_settings():
+    try:
+        return AnalyticsSettings.get_solo()
+    except Exception:
+        return SimpleNamespace(
+            gtm_id='GTM-WCRM2Z4W',
+            ads_id='AW-18337015115',
+        )
 
 
 def get_site_contact():

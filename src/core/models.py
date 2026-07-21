@@ -6,6 +6,7 @@ from django.db import models
 from .data import AREA_CHOICES, FLOORS_CHOICES, ROOF_MATERIALS, WORK_TYPE_CHOICES
 from .models_content import (  # noqa: F401
     AboutFeature,
+    AnalyticsSettings,
     ContentPage,
     FaqItem,
     HomeBlock,

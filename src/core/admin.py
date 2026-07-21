@@ -9,6 +9,7 @@ from core.admin_forms import ContentPageAdminForm, HomeBlockAdminForm
 
 from .models import (
     AboutFeature,
+    AnalyticsSettings,
     ContentPage,
     EstimateRequest,
     FaqItem,
@@ -60,6 +61,37 @@ class SiteSettingsAdmin(ModelAdmin):
         obj, _ = SiteSettings.objects.get_or_create(pk=1)
         return HttpResponseRedirect(
             reverse('admin:core_sitesettings_change', args=[obj.pk]),
+        )
+
+
+@admin.register(AnalyticsSettings)
+class AnalyticsSettingsAdmin(ModelAdmin):
+    fieldsets = (
+        ('Google Tag Manager', {
+            'fields': ('gtm_container_id',),
+            'description': (
+                'Контейнер GTM. Конверсії та додаткові теги '
+                'налаштовуються в інтерфейсі Google Tag Manager.'
+            ),
+        }),
+        ('Google Ads (gtag)', {
+            'fields': ('google_ads_id',),
+            'description': (
+                'Базовий тег Google Ads. Порожнє поле вимикає скрипт на сайті.'
+            ),
+        }),
+    )
+
+    def has_add_permission(self, request) -> bool:
+        return not AnalyticsSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        obj, _ = AnalyticsSettings.objects.get_or_create(pk=1)
+        return HttpResponseRedirect(
+            reverse('admin:core_analyticssettings_change', args=[obj.pk]),
         )
 
 

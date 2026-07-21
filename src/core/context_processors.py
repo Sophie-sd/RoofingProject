@@ -3,6 +3,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 from .content_services import (
+    get_analytics_settings,
     get_material_brands,
     get_site_contact,
     get_site_hours,
@@ -14,6 +15,7 @@ from .data import LOGO_PATH, NAV_ITEMS
 
 def site_context(request):
     settings_obj = get_site_settings()
+    analytics = get_analytics_settings()
     nav_links = []
     for item in NAV_ITEMS:
         href = reverse(item['url_name'])
@@ -41,6 +43,8 @@ def site_context(request):
             'Відповімо протягом дня у робочий час'
         ),
         'meta_description': getattr(settings_obj, 'meta_description', None) or '',
+        'gtm_id': getattr(analytics, 'gtm_id', '') or '',
+        'google_ads_id': getattr(analytics, 'ads_id', '') or '',
         'telegram_bot_username': getattr(settings, 'TELEGRAM_BOT_USERNAME', ''),
         'telegram_bot_url': (
             f'https://t.me/{settings.TELEGRAM_BOT_USERNAME}'

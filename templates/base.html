@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {% include 'partials/analytics_head.html' %}
   <title>{% block title %}{{ site_name }}{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}{{ meta_description|default:'Професійний монтаж покрівлі будь-якої складності. Скандинавська якість та безкомпромісна надійність.' }}{% endblock %}">
   <link rel="icon" href="{% static 'images/favicon/favicon.ico' %}" sizes="any">
@@ -38,6 +39,7 @@
   </script>
 </head>
 <body class="site-page {% block body_class %}{% endblock %}">
+  {% include 'partials/analytics_body.html' %}
   {% include 'partials/header.html' %}
   <main>
     {% block content %}{% endblock %}
